@@ -3,105 +3,162 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Free Members — Instalador Cloudflare</title>
+<title>Free Members — Setup Cloudflare</title>
+<meta name="description" content="Configure sua plataforma de cursos em minutos. Roda 100% na sua conta Cloudflare." />
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg: #0d0d14;
-    --surface: #13131f;
-    --surface-2: #1a1a2a;
-    --border: rgba(255,255,255,.08);
-    --text: #f0f0f8;
-    --text-2: #9090b0;
-    --text-3: #6060808;
+    --bg: #08080f;
+    --surface: #111120;
+    --surface-2: #181828;
+    --surface-3: #1e1e32;
+    --border: rgba(255,255,255,.07);
+    --border-2: rgba(255,255,255,.13);
+    --text: #eeeef8;
+    --text-2: #8888aa;
+    --text-3: #555570;
     --accent: #ff3d73;
     --accent-2: #ff7a45;
+    --accent-glow: rgba(255,61,115,.18);
     --success: #22c55e;
-    --warning: #f59e0b;
-    --error: #ef4444;
-    --radius: 12px;
-    --radius-sm: 8px;
+    --success-bg: rgba(34,197,94,.1);
+    --error-bg: rgba(239,68,68,.08);
+    --radius: 14px;
+    --radius-sm: 9px;
+    --shadow: 0 24px 64px rgba(0,0,0,.5);
   }
 
+  html { scroll-behavior: smooth; }
+
   body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
     background: var(--bg);
     color: var(--text);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: 2rem 1rem 4rem;
+    -webkit-font-smoothing: antialiased;
   }
 
-  /* ── Layout ─────────────────────────────────────────────────────── */
-  .installer {
-    width: 100%;
-    max-width: 640px;
+  /* ── Top nav ── */
+  .topnav {
     display: flex;
-    flex-direction: column;
-    gap: 0;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid var(--border);
+    background: rgba(8,8,15,.85);
+    backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
   }
 
-  .installer-header {
-    text-align: center;
-    padding: 2.5rem 0 2rem;
-  }
-
-  .installer-logo {
-    display: inline-flex;
+  .topnav-logo {
+    display: flex;
     align-items: center;
     gap: .6rem;
-    font-size: 1.1rem;
     font-weight: 700;
-    letter-spacing: -.01em;
-    margin-bottom: 1.5rem;
+    font-size: .95rem;
+    text-decoration: none;
+    color: inherit;
   }
 
-  .installer-logo-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
+  .topnav-logo-icon {
+    width: 30px; height: 30px;
+    border-radius: 8px;
     background: linear-gradient(135deg, var(--accent), var(--accent-2));
     display: grid;
     place-items: center;
-    font-size: 1.1rem;
-  }
-
-  .installer-header h1 {
-    font-size: 1.75rem;
-    font-weight: 800;
-    letter-spacing: -.03em;
-    line-height: 1.1;
-    margin-bottom: .6rem;
-  }
-
-  .installer-header p {
-    color: var(--text-2);
     font-size: .95rem;
-    line-height: 1.6;
   }
 
-  /* ── Progress bar ─────────────────────────────────────────────── */
-  .progress-bar {
-    display: flex;
-    align-items: center;
-    gap: 0;
-    margin-bottom: 2rem;
+  .topnav-links { display: flex; align-items: center; gap: 1.5rem; }
+  .topnav-links a { font-size: .82rem; color: var(--text-2); text-decoration: none; transition: color .15s; }
+  .topnav-links a:hover { color: var(--text); }
+  .topnav-badge { font-size: .72rem; padding: .25rem .6rem; border-radius: 20px; border: 1px solid var(--border-2); color: var(--text-2); font-weight: 500; }
+
+  /* ── Hero ── */
+  .hero {
+    text-align: center;
+    padding: 4rem 1.5rem 2rem;
     position: relative;
+    overflow: hidden;
   }
 
-  .progress-bar::before {
+  .hero::before {
     content: '';
     position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
+    top: -60px; left: 50%;
+    transform: translateX(-50%);
+    width: 600px; height: 300px;
+    background: radial-gradient(ellipse, rgba(255,61,115,.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    font-size: .75rem;
+    font-weight: 600;
+    padding: .3rem .85rem;
+    border-radius: 20px;
+    border: 1px solid rgba(255,61,115,.3);
+    color: var(--accent);
+    background: var(--accent-glow);
+    margin-bottom: 1.25rem;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+
+  .hero h1 {
+    font-size: clamp(1.75rem, 5vw, 2.75rem);
+    font-weight: 800;
+    letter-spacing: -.04em;
+    line-height: 1.1;
+    margin-bottom: .9rem;
+    background: linear-gradient(135deg, #fff 30%, #aaa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero p { font-size: 1rem; color: var(--text-2); line-height: 1.7; max-width: 480px; margin: 0 auto; }
+
+  /* ── Main layout ── */
+  .main { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 0 1rem 4rem; }
+  .wizard { width: 100%; max-width: 620px; display: flex; flex-direction: column; gap: 1.25rem; }
+
+  /* ── Progress ── */
+  .progress-wrap {
+    padding: 1.25rem 1.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+
+  .progress-steps {
+    display: flex;
+    align-items: center;
+    position: relative;
+    min-height: 58px;
+  }
+
+  .progress-track {
+    position: absolute;
+    top: 14px; left: 14px; right: 14px;
     height: 2px;
     background: var(--border);
-    transform: translateY(-50%);
     z-index: 0;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    transition: width .4s ease;
+    border-radius: 2px;
   }
 
   .progress-step {
@@ -109,1431 +166,610 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: .35rem;
+    gap: .4rem;
     position: relative;
     z-index: 1;
   }
 
   .progress-dot {
-    width: 28px;
-    height: 28px;
+    width: 28px; height: 28px;
     border-radius: 50%;
-    border: 2px solid var(--border);
-    background: var(--surface);
+    background: var(--surface-2);
+    border: 2px solid var(--border-2);
     display: grid;
     place-items: center;
-    font-size: .7rem;
+    font-size: .68rem;
     font-weight: 700;
-    color: var(--text-2);
+    color: var(--text-3);
     transition: all .3s;
   }
 
-  .progress-step.is-done .progress-dot {
-    background: var(--success);
-    border-color: var(--success);
-    color: #fff;
-  }
-
+  .progress-step.is-done .progress-dot { background: var(--success); border-color: var(--success); color: #fff; }
   .progress-step.is-active .progress-dot {
     background: linear-gradient(135deg, var(--accent), var(--accent-2));
-    border-color: transparent;
-    color: #fff;
-    box-shadow: 0 0 0 4px rgba(255,61,115,.2);
+    border-color: transparent; color: #fff;
+    box-shadow: 0 0 0 5px var(--accent-glow);
   }
 
-  .progress-label {
-    font-size: .65rem;
-    color: var(--text-2);
-    text-align: center;
-    white-space: nowrap;
-    font-weight: 500;
-  }
-
+  .progress-label { font-size: .6rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--text-3); text-align: center; }
   .progress-step.is-active .progress-label { color: var(--accent); }
   .progress-step.is-done .progress-label { color: var(--success); }
 
-  /* ── Card ─────────────────────────────────────────────────────── */
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+  /* ── Card ── */
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
+  .card-header { padding: 1.5rem 1.75rem 0; display: flex; flex-direction: column; gap: .3rem; }
+  .card-eyebrow {
+    font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent);
+    display: flex; align-items: center; gap: .4rem;
   }
-
-  .card-title {
-    font-size: 1.15rem;
-    font-weight: 700;
-    letter-spacing: -.01em;
-    display: flex;
-    align-items: center;
-    gap: .5rem;
+  .card-eyebrow::before { content: ''; display: inline-block; width: 16px; height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent-2)); border-radius: 2px; }
+  .card-title { font-size: 1.15rem; font-weight: 700; letter-spacing: -.02em; }
+  .card-desc { font-size: .875rem; color: var(--text-2); line-height: 1.65; padding-top: .1rem; }
+  .card-body { padding: 1.25rem 1.75rem; display: flex; flex-direction: column; gap: 1rem; }
+  .card-footer {
+    padding: 1rem 1.75rem 1.5rem;
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center; gap: .75rem;
+    background: rgba(255,255,255,.02);
   }
+  .card-footer .btn-primary { margin-left: auto; }
 
-  .card-title-icon {
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
-    background: rgba(255,61,115,.15);
-    display: grid;
-    place-items: center;
-    font-size: 1rem;
-  }
-
-  .card-desc {
-    color: var(--text-2);
-    font-size: .9rem;
-    line-height: 1.6;
-    margin-top: -.75rem;
-  }
-
-  /* ── Forms ─────────────────────────────────────────────────────── */
-  .field {
-    display: flex;
-    flex-direction: column;
-    gap: .4rem;
-  }
-
-  .field label {
-    font-size: .8rem;
-    font-weight: 600;
-    color: var(--text-2);
-    letter-spacing: .03em;
-    text-transform: uppercase;
-  }
-
-  .field input, .field select, .field textarea {
+  /* ── Form fields ── */
+  .field { display: flex; flex-direction: column; gap: .45rem; }
+  .field-label { font-size: .72rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--text-2); }
+  .field-input {
+    display: flex; align-items: center;
     background: var(--surface-2);
-    border: 1px solid var(--border);
+    border: 1px solid var(--border-2);
     border-radius: var(--radius-sm);
-    color: var(--text);
-    font-size: .9rem;
-    padding: .65rem .9rem;
-    outline: none;
-    transition: border-color .2s;
-    width: 100%;
-    font-family: inherit;
+    transition: border-color .2s, box-shadow .2s;
   }
-
-  .field input:focus, .field select:focus { border-color: var(--accent); }
-
-  .field input::placeholder { color: var(--text-2); opacity: .7; }
-
-  .field-hint {
-    font-size: .78rem;
-    color: var(--text-2);
-    line-height: 1.5;
+  .field-input:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
+  .field-input input, .field-input select {
+    flex: 1; background: none; border: none; outline: none;
+    color: var(--text); font-size: .9rem; padding: .7rem .95rem;
+    font-family: inherit; min-width: 0;
   }
-
+  .field-input select option { background: var(--surface-2); }
+  .field-input input::placeholder { color: var(--text-3); }
+  .field-icon { padding: 0 .85rem 0 .65rem; color: var(--text-3); font-size: .95rem; flex-shrink: 0; }
+  .field-hint { font-size: .78rem; color: var(--text-2); line-height: 1.55; }
   .field-hint a { color: var(--accent); text-decoration: none; }
   .field-hint a:hover { text-decoration: underline; }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: .85rem; }
 
-  .field-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-  }
-
-  /* ── Buttons ─────────────────────────────────────────────────── */
+  /* ── Buttons ── */
   .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: .5rem;
-    border: none;
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    font-size: .9rem;
-    font-weight: 600;
-    padding: .65rem 1.25rem;
-    transition: opacity .15s, transform .1s;
-    text-decoration: none;
-    white-space: nowrap;
+    display: inline-flex; align-items: center; justify-content: center; gap: .45rem;
+    border: none; border-radius: var(--radius-sm); cursor: pointer;
+    font-size: .875rem; font-weight: 600; padding: .65rem 1.35rem;
+    transition: opacity .15s, transform .1s, box-shadow .15s;
+    text-decoration: none; white-space: nowrap; font-family: inherit; letter-spacing: -.01em;
   }
-
   .btn:active { transform: scale(.97); }
-  .btn:disabled { opacity: .45; cursor: not-allowed; transform: none; }
-
-  .btn-primary {
-    background: linear-gradient(135deg, var(--accent), var(--accent-2));
-    color: #fff;
-  }
-
-  .btn-ghost {
-    background: transparent;
-    border: 1px solid var(--border);
-    color: var(--text-2);
-  }
-
+  .btn:disabled { opacity: .4; cursor: not-allowed; transform: none !important; }
+  .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #fff; box-shadow: 0 4px 16px rgba(255,61,115,.3); }
+  .btn-primary:not(:disabled):hover { box-shadow: 0 6px 24px rgba(255,61,115,.45); opacity: .92; }
+  .btn-ghost { background: transparent; border: 1px solid var(--border-2); color: var(--text-2); }
   .btn-ghost:hover { border-color: rgba(255,255,255,.2); color: var(--text); }
+  .btn-success { background: linear-gradient(135deg, #16a34a, #22c55e); color: #fff; box-shadow: 0 4px 16px rgba(34,197,94,.25); }
+  .btn-cf { background: linear-gradient(135deg, #f48120, #f6a623); color: #fff; box-shadow: 0 4px 16px rgba(244,129,32,.3); width: 100%; padding: .85rem 1.25rem; font-size: .875rem; }
 
-  .btn-success {
-    background: var(--success);
-    color: #fff;
-  }
+  /* ── Alerts ── */
+  .alert { border-radius: var(--radius-sm); padding: .8rem 1rem; font-size: .86rem; line-height: 1.55; display: flex; gap: .6rem; align-items: flex-start; }
+  .alert-icon { flex-shrink: 0; margin-top: .05rem; }
+  .alert-error { background: var(--error-bg); border: 1px solid rgba(239,68,68,.2); color: #fca5a5; }
+  .alert-success { background: var(--success-bg); border: 1px solid rgba(34,197,94,.2); color: #86efac; }
+  .alert-info { background: rgba(99,102,241,.08); border: 1px solid rgba(99,102,241,.2); color: #a5b4fc; }
+  .alert-warning { background: rgba(245,158,11,.08); border: 1px solid rgba(245,158,11,.2); color: #fcd34d; }
 
-  .btn-cf {
-    background: #f48120;
-    color: #fff;
-    font-size: .85rem;
-  }
+  /* ── Info boxes ── */
+  .info-list { display: flex; flex-direction: column; gap: .4rem; }
+  .info-row { display: flex; align-items: center; padding: .6rem .9rem; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); gap: .6rem; font-size: .85rem; }
+  .info-row-label { color: var(--text-2); flex-shrink: 0; min-width: 90px; }
+  .info-row-value { font-weight: 600; font-family: 'SF Mono', 'Fira Code', monospace; font-size: .8rem; flex: 1; word-break: break-all; }
+  .copy-btn { background: var(--surface-3); border: 1px solid var(--border); color: var(--text-2); cursor: pointer; padding: .25rem .55rem; border-radius: 6px; font-size: .7rem; font-family: inherit; flex-shrink: 0; transition: color .15s, background .15s; }
+  .copy-btn:hover { color: var(--text); background: var(--border-2); }
 
-  .btn-actions {
-    display: flex;
-    gap: .75rem;
-    align-items: center;
-    flex-wrap: wrap;
-  }
+  /* ── Feature grid ── */
+  .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
+  .feature-item { display: flex; align-items: flex-start; gap: .6rem; padding: .75rem .9rem; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); }
+  .feature-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: .05rem; }
+  .feature-text strong { display: block; font-size: .85rem; margin-bottom: .1rem; }
+  .feature-text small { font-size: .76rem; color: var(--text-2); line-height: 1.45; }
 
-  .btn-actions .btn-primary { margin-left: auto; }
-
-  /* ── Alerts ───────────────────────────────────────────────────── */
-  .alert {
-    border-radius: var(--radius-sm);
-    padding: .75rem 1rem;
-    font-size: .875rem;
-    line-height: 1.5;
-    display: flex;
-    gap: .5rem;
-    align-items: flex-start;
-  }
-
-  .alert-error { background: rgba(239,68,68,.1); border: 1px solid rgba(239,68,68,.25); color: #fca5a5; }
-  .alert-success { background: rgba(34,197,94,.1); border: 1px solid rgba(34,197,94,.25); color: #86efac; }
-  .alert-info { background: rgba(99,102,241,.1); border: 1px solid rgba(99,102,241,.25); color: #a5b4fc; }
-  .alert-warning { background: rgba(245,158,11,.1); border: 1px solid rgba(245,158,11,.25); color: #fcd34d; }
-
-  /* ── Info row ─────────────────────────────────────────────────── */
-  .info-grid {
-    display: flex;
-    flex-direction: column;
-    gap: .5rem;
-  }
-
-  .info-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: .6rem .9rem;
-    background: var(--surface-2);
-    border-radius: var(--radius-sm);
-    font-size: .875rem;
-    gap: .5rem;
-  }
-
-  .info-row-label { color: var(--text-2); flex-shrink: 0; }
-  .info-row-value { font-weight: 600; font-family: monospace; font-size: .8rem; word-break: break-all; }
-
-  .copy-btn {
-    background: none;
-    border: none;
-    color: var(--text-2);
-    cursor: pointer;
-    padding: .2rem .4rem;
-    border-radius: 4px;
-    font-size: .75rem;
-    flex-shrink: 0;
-    transition: color .15s;
-  }
-
-  .copy-btn:hover { color: var(--text); }
-
-  /* ── Code block ───────────────────────────────────────────────── */
-  .code-block {
-    background: #0a0a12;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 1rem;
-    font-family: 'SF Mono', 'Fira Code', monospace;
-    font-size: .78rem;
-    line-height: 1.7;
-    color: #c9d1d9;
-    overflow-x: auto;
-    white-space: pre;
-    position: relative;
-  }
-
-  .code-block .hl { color: #79c0ff; }
-  .code-block .hl2 { color: #a5d6ff; }
-  .code-block .comment { color: #8b949e; }
-  .code-block .value { color: #a3e98c; }
-
-  .code-copy-btn {
-    position: absolute;
-    top: .5rem;
-    right: .5rem;
-    background: var(--surface-2);
-    border: 1px solid var(--border);
-    color: var(--text-2);
-    border-radius: 6px;
-    padding: .3rem .6rem;
-    font-size: .7rem;
-    cursor: pointer;
-    transition: color .15s;
-  }
-
-  .code-copy-btn:hover { color: var(--text); }
-
-  /* ── Stepper ──────────────────────────────────────────────────── */
-  .step-list {
-    display: flex;
-    flex-direction: column;
-    gap: .5rem;
-  }
-
-  .step-item {
-    display: flex;
-    gap: .75rem;
-    align-items: flex-start;
-    padding: .75rem 1rem;
-    background: var(--surface-2);
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--border);
-  }
-
-  .step-num {
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    background: rgba(255,61,115,.15);
-    color: var(--accent);
-    font-size: .72rem;
-    font-weight: 700;
-    display: grid;
-    place-items: center;
-    flex-shrink: 0;
-    margin-top: .1rem;
-  }
-
-  .step-text {
-    font-size: .875rem;
-    line-height: 1.6;
-    color: var(--text-2);
-  }
-
-  .step-text strong { color: var(--text); }
-  .step-text code { font-family: monospace; font-size: .82rem; color: var(--accent); background: rgba(255,61,115,.1); padding: .1em .35em; border-radius: 4px; }
-
-  /* ── Toggle ───────────────────────────────────────────────────── */
-  .toggle-field {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: .75rem 1rem;
-    background: var(--surface-2);
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--border);
-  }
-
-  .toggle-label { font-size: .875rem; }
-  .toggle-sub { font-size: .78rem; color: var(--text-2); }
-
-  .switch { position: relative; display: inline-block; width: 40px; height: 22px; }
-  .switch input { opacity: 0; width: 0; height: 0; }
-  .switch-slider {
-    position: absolute; inset: 0;
-    background: var(--border);
-    border-radius: 22px;
-    cursor: pointer;
-    transition: background .2s;
-  }
-
-  .switch-slider::before {
-    content: '';
-    position: absolute;
-    width: 16px; height: 16px;
-    left: 3px; top: 3px;
-    background: #fff;
-    border-radius: 50%;
-    transition: transform .2s;
-  }
-
-  .switch input:checked + .switch-slider { background: var(--accent); }
-  .switch input:checked + .switch-slider::before { transform: translateX(18px); }
-
-  /* ── Success screen ──────────────────────────────────────────── */
-  .success-hero {
-    text-align: center;
-    padding: 1rem 0;
-  }
-
-  .success-icon {
-    font-size: 3.5rem;
-    margin-bottom: 1rem;
-  }
-
-  .success-hero h2 {
-    font-size: 1.5rem;
-    font-weight: 800;
-    letter-spacing: -.02em;
-    margin-bottom: .5rem;
-  }
-
-  .success-hero p {
-    color: var(--text-2);
-    font-size: .9rem;
-  }
-
-  /* ── Spinner ─────────────────────────────────────────────────── */
-  .spinner {
-    display: inline-block;
-    width: 14px; height: 14px;
-    border: 2px solid rgba(255,255,255,.3);
-    border-top-color: #fff;
-    border-radius: 50%;
-    animation: spin .6s linear infinite;
-    flex-shrink: 0;
-  }
-
-  @keyframes spin { to { transform: rotate(360deg); } }
-
-  /* ── Divider ─────────────────────────────────────────────────── */
-  .divider {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    color: var(--text-2);
-    font-size: .78rem;
-  }
-
-  .divider::before, .divider::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-
-  /* ── Select account ──────────────────────────────────────────── */
-  .account-list {
-    display: flex;
-    flex-direction: column;
-    gap: .5rem;
-    max-height: 260px;
-    overflow-y: auto;
-  }
-
-  .account-item {
-    display: flex;
-    align-items: center;
-    gap: .75rem;
-    padding: .75rem 1rem;
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    transition: border-color .2s;
-    background: none;
-    text-align: left;
-    color: inherit;
-    width: 100%;
-  }
-
-  .account-item:hover { border-color: rgba(255,61,115,.4); }
+  /* ── Account list ── */
+  .account-list { display: flex; flex-direction: column; gap: .4rem; max-height: 280px; overflow-y: auto; }
+  .account-list::-webkit-scrollbar { width: 4px; }
+  .account-list::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 4px; }
+  .account-item { display: flex; align-items: center; gap: .85rem; padding: .85rem 1rem; border: 1.5px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; transition: border-color .2s, background .2s; background: none; text-align: left; color: inherit; width: 100%; font-family: inherit; }
+  .account-item:hover { border-color: rgba(255,61,115,.35); background: rgba(255,61,115,.03); }
   .account-item.is-selected { border-color: var(--accent); background: rgba(255,61,115,.06); }
-
-  .account-icon {
-    width: 36px; height: 36px;
-    border-radius: 8px;
-    background: linear-gradient(135deg, var(--accent), var(--accent-2));
-    display: grid;
-    place-items: center;
-    font-size: 1rem;
-    flex-shrink: 0;
-  }
-
+  .account-avatar { width: 40px; height: 40px; border-radius: 10px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); display: grid; place-items: center; font-size: 1rem; flex-shrink: 0; font-weight: 700; color: #fff; }
+  .account-info { flex: 1; min-width: 0; }
   .account-name { font-weight: 600; font-size: .9rem; }
-  .account-id { font-size: .75rem; color: var(--text-2); font-family: monospace; }
+  .account-id { font-size: .72rem; color: var(--text-2); font-family: monospace; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .account-check { width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid var(--border-2); display: grid; place-items: center; font-size: .65rem; color: transparent; transition: all .2s; flex-shrink: 0; }
+  .account-item.is-selected .account-check { background: var(--accent); border-color: var(--accent); color: #fff; }
 
-  /* ── Migration log ───────────────────────────────────────────── */
-  .migration-log {
-    background: #0a0a12;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: .75rem 1rem;
-    font-family: monospace;
-    font-size: .78rem;
-    max-height: 200px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: .25rem;
-  }
+  /* ── Toggle ── */
+  .toggle-row { display: flex; align-items: center; justify-content: space-between; padding: .85rem 1rem; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); gap: 1rem; }
+  .toggle-text strong { display: block; font-size: .875rem; margin-bottom: .1rem; }
+  .toggle-text small { font-size: .76rem; color: var(--text-2); }
+  .switch { position: relative; display: inline-block; width: 42px; height: 23px; flex-shrink: 0; }
+  .switch input { opacity: 0; width: 0; height: 0; }
+  .switch-track { position: absolute; inset: 0; background: var(--border-2); border-radius: 23px; cursor: pointer; transition: background .2s; }
+  .switch-track::before { content: ''; position: absolute; width: 17px; height: 17px; left: 3px; top: 3px; background: #fff; border-radius: 50%; transition: transform .2s; box-shadow: 0 1px 3px rgba(0,0,0,.3); }
+  .switch input:checked + .switch-track { background: var(--accent); }
+  .switch input:checked + .switch-track::before { transform: translateX(19px); }
 
-  .log-line { line-height: 1.5; }
-  .log-ok { color: #86efac; }
-  .log-err { color: #fca5a5; }
-  .log-info { color: #a5b4fc; }
-  .log-wait { color: var(--text-2); }
+  /* ── Code block ── */
+  .code-wrap { position: relative; background: #06060e; border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; }
+  .code-header { display: flex; align-items: center; justify-content: space-between; padding: .5rem .9rem; border-bottom: 1px solid var(--border); background: rgba(255,255,255,.02); }
+  .code-lang { font-size: .7rem; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--text-3); }
+  .code-body { padding: 1rem; font-family: 'SF Mono', 'Fira Code', monospace; font-size: .78rem; line-height: 1.75; color: #c9d1d9; overflow-x: auto; white-space: pre; }
+  .hl { color: #79c0ff; } .hl2 { color: #d2a8ff; } .val { color: #a3e98c; } .cm { color: #6e7681; }
 
-  /* ── Responsive ──────────────────────────────────────────────── */
-  @media (max-width: 480px) {
+  /* ── Steps list ── */
+  .steps-list { display: flex; flex-direction: column; gap: .4rem; }
+  .step-row { display: flex; gap: .75rem; padding: .8rem .95rem; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); }
+  .step-num { width: 22px; height: 22px; border-radius: 50%; background: var(--accent-glow); border: 1px solid rgba(255,61,115,.3); color: var(--accent); font-size: .68rem; font-weight: 700; display: grid; place-items: center; flex-shrink: 0; margin-top: .15rem; }
+  .step-text { font-size: .86rem; line-height: 1.6; color: var(--text-2); flex: 1; }
+  .step-text strong { color: var(--text); }
+  .step-text code { font-family: 'SF Mono', monospace; font-size: .8rem; color: var(--accent); background: var(--accent-glow); padding: .1em .35em; border-radius: 4px; }
+
+  /* ── Migration log ── */
+  .mig-progress { display: flex; align-items: center; gap: 1rem; padding: .75rem 1rem; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); }
+  .mig-ring { position: relative; width: 48px; height: 48px; flex-shrink: 0; }
+  .mig-ring svg { transform: rotate(-90deg); }
+  .mig-ring-track { fill: none; stroke: var(--border-2); stroke-width: 3; }
+  .mig-ring-fill { fill: none; stroke: url(#gradient); stroke-width: 3; stroke-linecap: round; transition: stroke-dashoffset .3s; }
+  .mig-ring-label { position: absolute; inset: 0; display: grid; place-items: center; font-size: .62rem; font-weight: 700; color: var(--text); }
+  .mig-info { flex: 1; min-width: 0; }
+  .mig-info strong { display: block; font-size: .875rem; margin-bottom: .15rem; }
+  .mig-info small { font-size: .78rem; color: var(--text-2); }
+
+  .mig-log { background: #06060e; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: .85rem 1rem; font-family: 'SF Mono', monospace; font-size: .75rem; line-height: 1.65; max-height: 220px; overflow-y: auto; display: flex; flex-direction: column; gap: .15rem; }
+  .mig-log::-webkit-scrollbar { width: 3px; }
+  .mig-log::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 3px; }
+  .log-ok { color: #86efac; } .log-err { color: #fca5a5; } .log-info { color: #93c5fd; } .log-dim { color: var(--text-3); }
+
+  /* ── Success ── */
+  .success-screen { text-align: center; padding: 1.5rem 0 .5rem; }
+  .success-icon-wrap { width: 72px; height: 72px; border-radius: 50%; background: var(--success-bg); border: 2px solid rgba(34,197,94,.3); display: grid; place-items: center; margin: 0 auto 1.25rem; font-size: 2rem; animation: pop .4s ease; }
+  @keyframes pop { 0% { transform: scale(.5); opacity: 0; } 70% { transform: scale(1.1); } 100% { transform: scale(1); opacity: 1; } }
+  .success-screen h2 { font-size: 1.5rem; font-weight: 800; letter-spacing: -.03em; margin-bottom: .4rem; }
+  .success-screen p { color: var(--text-2); font-size: .9rem; }
+
+  /* ── Misc ── */
+  .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(255,255,255,.3); border-top-color: #fff; border-radius: 50%; animation: spin .65s linear infinite; flex-shrink: 0; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .divider { display: flex; align-items: center; gap: .85rem; color: var(--text-3); font-size: .75rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
+  .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .footer { text-align: center; padding: 1.5rem; font-size: .78rem; color: var(--text-3); border-top: 1px solid var(--border); margin-top: 2rem; }
+  .footer a { color: var(--text-2); text-decoration: none; }
+  .footer a:hover { color: var(--text); }
+
+  @media (max-width: 500px) {
+    .topnav { padding: .85rem 1.1rem; }
+    .hero { padding: 2.5rem 1rem 1.5rem; }
+    .feature-grid { grid-template-columns: 1fr; }
     .field-row { grid-template-columns: 1fr; }
-    .btn-actions { flex-direction: column; }
-    .btn-actions .btn-primary { margin-left: 0; width: 100%; justify-content: center; }
+    .card-footer { flex-wrap: wrap; }
+    .card-footer .btn-primary { margin-left: 0; width: 100%; }
     .progress-label { display: none; }
+    .topnav-badge { display: none; }
   }
 </style>
 </head>
 <body>
 
-<div class="installer">
-
-  <!-- Header -->
-  <div class="installer-header">
-    <div class="installer-logo">
-      <div class="installer-logo-icon">🎓</div>
-      <span>Free Members</span>
-    </div>
-    <h1>Instalador Cloudflare</h1>
-    <p>Configure sua plataforma de cursos em menos de 5 minutos.<br>Tudo roda no seu próprio Cloudflare — zero servidores.</p>
+<nav class="topnav">
+  <a class="topnav-logo" href="#">
+    <div class="topnav-logo-icon">🎓</div>
+    Free Members
+  </a>
+  <div class="topnav-links">
+    <a href="https://github.com/diegotolenino/free-members-cloud" target="_blank">GitHub</a>
+    <span class="topnav-badge">v0.1.0</span>
   </div>
+</nav>
 
-  <!-- Progress bar -->
-  <div class="progress-bar" id="progressBar">
-    <!-- rendered by JS -->
-  </div>
-
-  <!-- Step content -->
-  <div class="card" id="stepCard">
-    <!-- rendered by JS -->
-  </div>
-
+<div class="hero" id="hero">
+  <div class="hero-pill">⚡ Setup em 5 minutos</div>
+  <h1>Sua plataforma de cursos<br>no Cloudflare</h1>
+  <p>Configure o Free Members na sua conta Cloudflare. Banco de dados, worker e primeiro admin — tudo automatizado.</p>
 </div>
+
+<div class="main">
+  <div class="wizard">
+    <div class="progress-wrap">
+      <div class="progress-steps" id="progressSteps"></div>
+    </div>
+    <div class="card" id="stepCard"></div>
+  </div>
+</div>
+
+<footer class="footer">
+  <p>Free Members Cloud &middot; <a href="https://github.com/diegotolenino/free-members-cloud" target="_blank">GitHub</a> &middot; Suporte: <a href="mailto:emailfulldigital@gmail.com">emailfulldigital@gmail.com</a></p>
+</footer>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ff3d73"/>
+      <stop offset="100%" style="stop-color:#ff7a45"/>
+    </linearGradient>
+  </defs>
+</svg>
 
 <script>
 'use strict';
 
-/* ═══════════════════════════════════════════════════════════════
-   State
-═══════════════════════════════════════════════════════════════ */
-const state = {
-  step: 0,
-  cfToken: '',
-  user: null,
-  accounts: [],
-  account: null,
-  db: null,
-  bucket: null,
-  createBucket: true,
-  workerUrl: '',
-  adminName: '',
-  adminEmail: '',
-  adminPassword: '',
-  logs: [],
-  migrationsDone: false,
-  adminCreated: false,
-  error: '',
-  loading: false,
+const S = {
+  step:0, cfToken:'', user:null, accounts:[], account:null,
+  db:null, bucket:null, createBucket:true,
+  workerUrl:'', adminName:'', adminEmail:'', adminPassword:'',
+  logs:[], migDone:false, migCount:0, migTotal:0, adminDone:false,
+  error:'', loading:false,
 };
 
-const CF_API = 'https://api.cloudflare.com/client/v4';
+const CF = 'https://api.cloudflare.com/client/v4';
 
-/* ═══════════════════════════════════════════════════════════════
-   Cloudflare API helpers
-═══════════════════════════════════════════════════════════════ */
-async function cfFetch(path, opts = {}) {
-  const res = await fetch(`${CF_API}${path}`, {
-    ...opts,
-    headers: {
-      'Authorization': `Bearer ${state.cfToken}`,
-      'Content-Type': 'application/json',
-      ...(opts.headers || {}),
-    },
-  });
-  const data = await res.json();
-  if (!data.success) throw new Error((data.errors || []).map(e => e.message).join(', ') || 'Cloudflare API error');
-  return data;
+async function cfGet(path) {
+  const r = await fetch(`${CF}${path}`, { headers: { Authorization: `Bearer ${S.cfToken}` } });
+  const d = await r.json();
+  if (!d.success) throw new Error((d.errors||[]).map(e=>e.message).join(', ')||`CF ${r.status}`);
+  return d.result;
 }
 
-async function d1Query(accountId, dbId, sql) {
-  const res = await fetch(`${CF_API}/accounts/${accountId}/d1/database/${dbId}/query`, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${state.cfToken}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ sql }),
+async function cfPost(path, body) {
+  const r = await fetch(`${CF}${path}`, {
+    method:'POST', headers:{ Authorization:`Bearer ${S.cfToken}`, 'Content-Type':'application/json' }, body:JSON.stringify(body),
   });
-  const data = await res.json();
-  if (!data.success) throw new Error((data.errors || []).map(e => e.message).join(', '));
-  return data;
+  const d = await r.json();
+  if (!d.success) throw new Error((d.errors||[]).map(e=>e.message).join(', ')||`CF ${r.status}`);
+  return d.result;
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   Migration SQL (all tables combined + idempotent)
-═══════════════════════════════════════════════════════════════ */
-const MIGRATION_STATEMENTS = [
-  `create table if not exists installations (
-    id text primary key,
-    license_key text,
-    app_version text not null default '0.1.0',
-    schema_version integer not null default 1,
-    created_at text not null default current_timestamp,
-    updated_at text not null default current_timestamp
-  )`,
+async function d1Run(aid, dbId, sql) {
+  const r = await fetch(`${CF}/accounts/${aid}/d1/database/${dbId}/query`, {
+    method:'POST', headers:{ Authorization:`Bearer ${S.cfToken}`, 'Content-Type':'application/json' }, body:JSON.stringify({sql}),
+  });
+  const d = await r.json();
+  if (!d.success) throw new Error((d.errors||[]).map(e=>e.message).join(', ')||`D1 ${r.status}`);
+  return d;
+}
 
-  `create table if not exists users (
-    id integer primary key autoincrement,
-    name text not null,
-    email text not null unique,
-    password_hash text not null,
-    role text not null default 'student',
-    status text not null default 'active',
-    avatar_url text,
-    metadata_json text not null default '{}',
-    created_at text not null default current_timestamp,
-    updated_at text not null default current_timestamp
-  )`,
-
-  `create table if not exists courses (
-    id integer primary key autoincrement,
-    title text not null,
-    slug text not null unique,
-    excerpt text,
-    description_html text,
-    status text not null default 'draft',
-    visibility text not null default 'private',
-    cover_image_url text,
-    banner_image_url text,
-    appearance_json text not null default '{}',
-    module_covers_enabled integer not null default 0,
-    sort_order integer not null default 0,
-    created_at text not null default current_timestamp,
-    updated_at text not null default current_timestamp
-  )`,
-
-  `create table if not exists course_sections (
-    id integer primary key autoincrement,
-    course_id integer not null references courses(id) on delete cascade,
-    title text not null,
-    status text not null default 'published',
-    sort_order integer not null default 0,
-    created_at text not null default current_timestamp,
-    updated_at text not null default current_timestamp
-  )`,
-
-  `create table if not exists modules (
-    id integer primary key autoincrement,
-    course_id integer not null references courses(id) on delete cascade,
-    section_id integer references course_sections(id) on delete set null,
-    title text not null,
-    description text,
-    status text not null default 'draft',
-    cover_image_url text,
-    sort_order integer not null default 0,
-    created_at text not null default current_timestamp,
-    updated_at text not null default current_timestamp
-  )`,
-
-  `create table if not exists lessons (
-    id integer primary key autoincrement,
-    course_id integer not null references courses(id) on delete cascade,
-    module_id integer not null references modules(id) on delete cascade,
-    title text not null,
-    description_html text,
-    video_provider text,
-    video_url text,
-    video_embed_html text,
-    duration_seconds integer not null default 0,
-    status text not null default 'draft',
-    materials_json text not null default '[]',
-    sort_order integer not null default 0,
-    created_at text not null default current_timestamp,
-    updated_at text not null default current_timestamp
-  )`,
-
-  `create table if not exists sessions (
-    id integer primary key autoincrement,
-    user_id integer not null references users(id) on delete cascade,
-    token_hash text not null unique,
-    user_agent text,
-    ip_address text,
-    expires_at text not null,
-    created_at text not null default current_timestamp,
-    updated_at text not null default current_timestamp
-  )`,
-
-  `create table if not exists enrollments (
-    id integer primary key autoincrement,
-    user_id integer not null,
-    course_id integer not null,
-    status text not null default 'active',
-    source text not null default 'manual',
-    enrolled_at text not null default (datetime('now')),
-    created_at text not null default (datetime('now')),
-    unique(user_id, course_id)
-  )`,
-
-  `create table if not exists lesson_progress (
-    id integer primary key autoincrement,
-    user_id integer not null references users(id) on delete cascade,
-    course_id integer not null references courses(id) on delete cascade,
-    lesson_id integer not null references lessons(id) on delete cascade,
-    completed integer not null default 0,
-    position_seconds integer not null default 0,
-    updated_at text not null default current_timestamp,
-    unique(user_id, lesson_id)
-  )`,
-
-  `create table if not exists integrations (
-    id integer primary key autoincrement,
-    provider text not null,
-    name text not null default '',
-    status text not null default 'active',
-    settings_json text not null default '{}',
-    created_at text not null default (datetime('now')),
-    updated_at text not null default (datetime('now'))
-  )`,
-
-  `create table if not exists checkouts (
-    id integer primary key autoincrement,
-    name text not null default '',
-    slug text not null default '',
-    status text not null default 'draft',
-    price real not null default 0,
-    currency text not null default 'BRL',
-    gateway_id text not null default 'mercadopago',
-    document_mode text not null default 'both',
-    banner_enabled integer not null default 1,
-    banner_url text not null default '',
-    course_ids_json text not null default '[]',
-    payment_methods_json text not null default '[]',
-    settings_json text not null default '{}',
-    public_url text not null default '',
-    created_at text not null default (datetime('now')),
-    updated_at text not null default (datetime('now'))
-  )`,
-
+const MIGRATIONS = [
+  `create table if not exists installations (id text primary key, license_key text, app_version text not null default '0.1.0', schema_version integer not null default 1, created_at text not null default current_timestamp, updated_at text not null default current_timestamp)`,
+  `create table if not exists users (id integer primary key autoincrement, name text not null, email text not null unique, password_hash text not null, role text not null default 'student', status text not null default 'active', avatar_url text, metadata_json text not null default '{}', created_at text not null default current_timestamp, updated_at text not null default current_timestamp)`,
+  `create table if not exists courses (id integer primary key autoincrement, title text not null, slug text not null unique, excerpt text, description_html text, status text not null default 'draft', visibility text not null default 'private', cover_image_url text, banner_image_url text, appearance_json text not null default '{}', module_covers_enabled integer not null default 0, sort_order integer not null default 0, created_at text not null default current_timestamp, updated_at text not null default current_timestamp)`,
+  `create table if not exists course_sections (id integer primary key autoincrement, course_id integer not null references courses(id) on delete cascade, title text not null, status text not null default 'published', sort_order integer not null default 0, created_at text not null default current_timestamp, updated_at text not null default current_timestamp)`,
+  `create table if not exists modules (id integer primary key autoincrement, course_id integer not null references courses(id) on delete cascade, section_id integer references course_sections(id) on delete set null, title text not null, description text, status text not null default 'draft', cover_image_url text, sort_order integer not null default 0, created_at text not null default current_timestamp, updated_at text not null default current_timestamp)`,
+  `create table if not exists lessons (id integer primary key autoincrement, course_id integer not null references courses(id) on delete cascade, module_id integer not null references modules(id) on delete cascade, title text not null, description_html text, video_provider text, video_url text, video_embed_html text, duration_seconds integer not null default 0, status text not null default 'draft', materials_json text not null default '[]', sort_order integer not null default 0, created_at text not null default current_timestamp, updated_at text not null default current_timestamp)`,
+  `create table if not exists sessions (id integer primary key autoincrement, user_id integer not null references users(id) on delete cascade, token_hash text not null unique, user_agent text, ip_address text, expires_at text not null, created_at text not null default current_timestamp, updated_at text not null default current_timestamp)`,
+  `create table if not exists enrollments (id integer primary key autoincrement, user_id integer not null, course_id integer not null, status text not null default 'active', source text not null default 'manual', enrolled_at text not null default (datetime('now')), created_at text not null default (datetime('now')), unique(user_id, course_id))`,
+  `create table if not exists lesson_progress (id integer primary key autoincrement, user_id integer not null references users(id) on delete cascade, course_id integer not null references courses(id) on delete cascade, lesson_id integer not null references lessons(id) on delete cascade, completed integer not null default 0, position_seconds integer not null default 0, updated_at text not null default current_timestamp, unique(user_id, lesson_id))`,
+  `create table if not exists integrations (id integer primary key autoincrement, provider text not null, name text not null default '', status text not null default 'active', settings_json text not null default '{}', created_at text not null default (datetime('now')), updated_at text not null default (datetime('now')))`,
+  `create table if not exists checkouts (id integer primary key autoincrement, name text not null default '', slug text not null default '', status text not null default 'draft', price real not null default 0, currency text not null default 'BRL', gateway_id text not null default 'mercadopago', document_mode text not null default 'both', banner_enabled integer not null default 1, banner_url text not null default '', course_ids_json text not null default '[]', payment_methods_json text not null default '[]', settings_json text not null default '{}', public_url text not null default '', created_at text not null default (datetime('now')), updated_at text not null default (datetime('now')))`,
   `create unique index if not exists checkouts_slug_idx on checkouts(slug)`,
-
-  `create table if not exists orders (
-    id integer primary key autoincrement,
-    checkout_id integer,
-    student_id integer,
-    checkout_name text not null default '',
-    student_name text not null default '',
-    student_email text not null default '',
-    amount real not null default 0,
-    currency text not null default 'BRL',
-    status text not null default 'pending',
-    payment_method text not null default 'card',
-    gateway_id text not null default '',
-    gateway_order_id text not null default '',
-    metadata_json text not null default '{}',
-    created_at text not null default (datetime('now')),
-    updated_at text not null default (datetime('now'))
-  )`,
-
-  `create table if not exists settings (
-    key text primary key not null,
-    value_json text not null default 'null',
-    updated_at text not null default (datetime('now'))
-  )`,
-
-  `create table if not exists email_templates (
-    key text primary key,
-    title text not null,
-    subject text not null,
-    body_html text not null,
-    enabled integer not null default 1,
-    updated_at text not null default current_timestamp
-  )`,
-
-  `create table if not exists products (
-    id integer primary key autoincrement,
-    name text not null,
-    slug text not null unique,
-    price_cents integer not null default 0,
-    currency text not null default 'BRL',
-    course_ids_json text not null default '[]',
-    status text not null default 'draft',
-    created_at text not null default current_timestamp,
-    updated_at text not null default current_timestamp
-  )`,
-
+  `create table if not exists orders (id integer primary key autoincrement, checkout_id integer, student_id integer, checkout_name text not null default '', student_name text not null default '', student_email text not null default '', amount real not null default 0, currency text not null default 'BRL', status text not null default 'pending', payment_method text not null default 'card', gateway_id text not null default '', gateway_order_id text not null default '', metadata_json text not null default '{}', created_at text not null default (datetime('now')), updated_at text not null default (datetime('now')))`,
+  `create table if not exists settings (key text primary key not null, value_json text not null default 'null', updated_at text not null default (datetime('now')))`,
+  `create table if not exists email_templates (key text primary key, title text not null, subject text not null, body_html text not null, enabled integer not null default 1, updated_at text not null default current_timestamp)`,
+  `create table if not exists products (id integer primary key autoincrement, name text not null, slug text not null unique, price_cents integer not null default 0, currency text not null default 'BRL', course_ids_json text not null default '[]', status text not null default 'draft', created_at text not null default current_timestamp, updated_at text not null default current_timestamp)`,
   `create index if not exists idx_courses_status on courses(status)`,
   `create index if not exists idx_modules_course on modules(course_id)`,
   `create index if not exists idx_lessons_module on lessons(module_id)`,
   `create index if not exists idx_enrollments_user on enrollments(user_id)`,
-  `create index if not exists idx_enrollments_course on enrollments(course_id)`,
   `create index if not exists idx_orders_status on orders(status)`,
   `create index if not exists idx_sessions_user on sessions(user_id)`,
   `create index if not exists idx_sessions_expires on sessions(expires_at)`,
 ];
 
-/* ═══════════════════════════════════════════════════════════════
-   Steps definition
-═══════════════════════════════════════════════════════════════ */
 const STEPS = [
-  { label: 'Bem-vindo', icon: '👋' },
-  { label: 'Token', icon: '🔑' },
-  { label: 'Conta', icon: '☁️' },
-  { label: 'Banco', icon: '🗄️' },
-  { label: 'Storage', icon: '📦' },
-  { label: 'Migrações', icon: '⚙️' },
-  { label: 'Deploy', icon: '🚀' },
-  { label: 'Admin', icon: '👤' },
-  { label: 'Pronto', icon: '✅' },
+  {label:'Início'},{label:'Token'},{label:'Conta'},{label:'Banco'},
+  {label:'Storage'},{label:'Migração'},{label:'Deploy'},{label:'Admin'},{label:'Pronto'},
 ];
 
-/* ═══════════════════════════════════════════════════════════════
-   Render helpers
-═══════════════════════════════════════════════════════════════ */
-function esc(str) {
-  return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const $ = id => document.getElementById(id);
+const esc = s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const val = id => { const e=$(id); return e?e.value.trim():''; };
+function setHtml(id,h){const e=$(id);if(e)e.innerHTML=h;}
+function copyText(t,b){navigator.clipboard.writeText(t).then(()=>{const o=b.textContent;b.textContent='✓ Copiado';setTimeout(()=>b.textContent=o,1600)}).catch(()=>{});}
+
+function addLog(msg,type='info'){
+  S.logs.push({msg,type});
+  const el=$('migLog');
+  if(el){el.innerHTML+=`<div class="log-${type}">${esc(msg)}</div>`;el.scrollTop=el.scrollHeight;}
 }
 
-function setHtml(id, html) {
-  const el = document.getElementById(id);
-  if (el) el.innerHTML = html;
+function updateRing(done,total){
+  S.migCount=done;S.migTotal=total;
+  const pct=total?done/total:0;
+  const circ=2*Math.PI*18;
+  const f=$('ringFill');const l=$('ringLabel');const i=$('migInfoText');
+  if(f)f.style.strokeDashoffset=circ*(1-pct);
+  if(l)l.textContent=total?Math.round(pct*100)+'%':'';
+  if(i)i.textContent=`${done} de ${total} instruções`;
 }
 
-function val(id) {
-  const el = document.getElementById(id);
-  return el ? el.value.trim() : '';
-}
-
-function checked(id) {
-  const el = document.getElementById(id);
-  return el ? el.checked : false;
-}
-
-function copyToClipboard(text, btnEl) {
-  navigator.clipboard.writeText(text).then(() => {
-    const orig = btnEl.textContent;
-    btnEl.textContent = '✓ Copiado';
-    setTimeout(() => { btnEl.textContent = orig; }, 1500);
-  });
-}
-
-function addLog(msg, type = 'info') {
-  state.logs.push({ msg, type });
-  const log = document.getElementById('migrationLog');
-  if (log) {
-    log.innerHTML += `<div class="log-line log-${type}">${esc(msg)}</div>`;
-    log.scrollTop = log.scrollHeight;
-  }
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   Progress bar render
-═══════════════════════════════════════════════════════════════ */
-function renderProgress() {
-  const html = STEPS.map((s, i) => {
-    const cls = i < state.step ? 'is-done' : i === state.step ? 'is-active' : '';
-    const icon = i < state.step ? '✓' : (i + 1);
-    return `<div class="progress-step ${cls}">
-      <div class="progress-dot">${icon}</div>
-      <div class="progress-label">${esc(s.label)}</div>
-    </div>`;
+function renderProgress(){
+  const pct=STEPS.length>1?(S.step/(STEPS.length-1))*100:0;
+  const stepsHtml=STEPS.map((s,i)=>{
+    const cls=i<S.step?'is-done':i===S.step?'is-active':'';
+    return `<div class="progress-step ${cls}"><div class="progress-dot">${i<S.step?'✓':i+1}</div><div class="progress-label">${esc(s.label)}</div></div>`;
   }).join('');
-  setHtml('progressBar', html);
+  setHtml('progressSteps',`<div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>${stepsHtml}`);
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   Step renders
-═══════════════════════════════════════════════════════════════ */
-function renderStep() {
+function goStep(n){S.step=n;S.error='';S.loading=false;document.getElementById('hero')?.scrollIntoView({behavior:'smooth',block:'start'});renderStep();}
+
+function renderStep(){
   renderProgress();
-  const renders = [
-    renderWelcome,
-    renderToken,
-    renderAccount,
-    renderDatabase,
-    renderStorage,
-    renderMigrations,
-    renderDeploy,
-    renderAdmin,
-    renderDone,
-  ];
-  (renders[state.step] || renderWelcome)();
+  [rWelcome,rToken,rAccount,rDatabase,rStorage,rMigrate,rDeploy,rAdmin,rDone][S.step]?.();
 }
 
-/* ── Step 0: Welcome ─────────────────────────────────────────── */
-function renderWelcome() {
-  setHtml('stepCard', `
-    <div class="card-title">
-      <div class="card-title-icon">👋</div>
-      Bem-vindo ao instalador
+/* ── Step 0: Welcome ── */
+function rWelcome(){
+  setHtml('stepCard',`
+    <div class="card-header">
+      <div class="card-eyebrow">Instalador</div>
+      <div class="card-title">Bem-vindo ao Free Members Cloud</div>
+      <div class="card-desc">Configure sua plataforma de cursos na infraestrutura Cloudflare. Nenhum servidor dedicado necessário.</div>
     </div>
-    <p class="card-desc">
-      Este assistente vai configurar o <strong>Free Members Cloud</strong> na sua conta Cloudflare.
-      O processo leva cerca de <strong>5 minutos</strong>.
-    </p>
-
-    <div class="step-list">
-      <div class="step-item"><div class="step-num">1</div><div class="step-text">Autenticar com um <strong>Token Cloudflare</strong></div></div>
-      <div class="step-item"><div class="step-num">2</div><div class="step-text">Criar um <strong>banco de dados D1</strong> (SQLite gerenciado)</div></div>
-      <div class="step-item"><div class="step-num">3</div><div class="step-text">Executar as <strong>migrações</strong> automaticamente via API</div></div>
-      <div class="step-item"><div class="step-num">4</div><div class="step-text"><strong>Fazer o deploy</strong> do Worker com a configuração gerada</div></div>
-      <div class="step-item"><div class="step-num">5</div><div class="step-text">Criar o <strong>primeiro administrador</strong> da plataforma</div></div>
-    </div>
-
-    <div class="alert alert-info">
-      ℹ️ Você precisará de uma conta Cloudflare. O plano gratuito é suficiente para começar.
-    </div>
-
-    <div class="btn-actions">
-      <a class="btn btn-ghost" href="https://github.com/diegotolenino/free-members-cloud" target="_blank">Ver no GitHub</a>
-      <button class="btn btn-primary" onclick="goStep(1)">Começar →</button>
-    </div>
-  `);
-}
-
-/* ── Step 1: Token ───────────────────────────────────────────── */
-function renderToken() {
-  const err = state.error ? `<div class="alert alert-error">⚠️ ${esc(state.error)}</div>` : '';
-  setHtml('stepCard', `
-    <div class="card-title">
-      <div class="card-title-icon">🔑</div>
-      Token da Cloudflare API
-    </div>
-    <p class="card-desc">
-      Crie um <strong>API Token</strong> com permissões de <em>Workers, D1, R2 e Account</em>.
-    </p>
-
-    <div class="field">
-      <label>API TOKEN</label>
-      <input type="password" id="cfTokenInput" placeholder="eyJhbGciOiJSUzI1NiJ9..." value="${esc(state.cfToken)}" autocomplete="off" />
-      <div class="field-hint">
-        Acesse <a href="https://dash.cloudflare.com/profile/api-tokens" target="_blank">dash.cloudflare.com → Meu Perfil → API Tokens</a>
-        e clique em <strong>"Create Token"</strong>. Use o template <em>"Edit Cloudflare Workers"</em> e adicione permissão de <em>D1:Edit</em> e <em>R2:Edit</em>.
+    <div class="card-body">
+      <div class="feature-grid">
+        <div class="feature-item"><div class="feature-icon">🗄️</div><div class="feature-text"><strong>Banco D1</strong><small>SQLite gerenciado pela Cloudflare, sem custo extra</small></div></div>
+        <div class="feature-item"><div class="feature-icon">⚡</div><div class="feature-text"><strong>Worker API</strong><small>TypeScript na edge, zero cold start</small></div></div>
+        <div class="feature-item"><div class="feature-icon">📦</div><div class="feature-text"><strong>Storage R2</strong><small>Upload de arquivos e imagens dos cursos</small></div></div>
+        <div class="feature-item"><div class="feature-icon">🔒</div><div class="feature-text"><strong>HTTPS automático</strong><small>SSL grátis via Cloudflare</small></div></div>
       </div>
+      <div class="alert alert-info"><span class="alert-icon">ℹ️</span><span>Você precisará de um <strong>API Token Cloudflare</strong> com permissões de Workers, D1 e R2. O plano gratuito é suficiente.</span></div>
     </div>
-
-    ${err}
-
-    <div class="btn-actions">
-      <button class="btn btn-ghost" onclick="goStep(0)">← Voltar</button>
-      <button class="btn btn-primary" id="validateBtn" onclick="validateToken()">
-        ${state.loading ? '<span class="spinner"></span> Verificando...' : 'Verificar token →'}
-      </button>
-    </div>
-  `);
-
-  const input = document.getElementById('cfTokenInput');
-  if (input) {
-    input.addEventListener('keydown', e => { if (e.key === 'Enter') validateToken(); });
-    if (!state.cfToken) setTimeout(() => input.focus(), 50);
-  }
+    <div class="card-footer">
+      <a class="btn btn-ghost" href="https://github.com/diegotolenino/free-members-cloud" target="_blank">📖 GitHub</a>
+      <button class="btn btn-primary" onclick="goStep(1)">Começar instalação →</button>
+    </div>`);
 }
 
-async function validateToken() {
-  state.cfToken = val('cfTokenInput');
-  if (!state.cfToken) { state.error = 'Informe o token.'; return renderToken(); }
-  state.loading = true; state.error = '';
-  renderToken();
-  try {
-    const data = await cfFetch('/user');
-    state.user = data.result;
-    const accs = await cfFetch('/accounts?per_page=50');
-    state.accounts = accs.result || [];
-    state.loading = false;
-    goStep(2);
-  } catch (e) {
-    state.loading = false;
-    state.error = `Token inválido: ${e.message}`;
-    renderToken();
-  }
-}
-
-/* ── Step 2: Account ─────────────────────────────────────────── */
-function renderAccount() {
-  const accounts = state.accounts;
-  const list = accounts.length
-    ? accounts.map(a => `
-      <button class="account-item ${state.account?.id === a.id ? 'is-selected' : ''}" onclick="selectAccount('${esc(a.id)}')">
-        <div class="account-icon">☁️</div>
-        <div>
-          <div class="account-name">${esc(a.name)}</div>
-          <div class="account-id">${esc(a.id)}</div>
+/* ── Step 1: Token ── */
+function rToken(){
+  const err=S.error?`<div class="alert alert-error"><span class="alert-icon">⚠️</span><span>${esc(S.error)}</span></div>`:'';
+  setHtml('stepCard',`
+    <div class="card-header">
+      <div class="card-eyebrow">Passo 1 de 8</div>
+      <div class="card-title">Token da API Cloudflare</div>
+      <div class="card-desc">Crie um token com permissões de Workers, D1 e R2. O token é validado e não fica armazenado.</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">API Token</div>
+        <div class="field-input"><span class="field-icon">🔑</span><input type="password" id="cfTokenInput" placeholder="Cole o token aqui..." value="${esc(S.cfToken)}" autocomplete="off" /></div>
+        <div class="field-hint">
+          1. Acesse <a href="https://dash.cloudflare.com/profile/api-tokens" target="_blank">dash.cloudflare.com → API Tokens</a><br>
+          2. Clique em <strong>"Create Token"</strong> → template <em>"Edit Cloudflare Workers"</em><br>
+          3. Adicione permissões: <strong>D1:Edit</strong> e <strong>R2:Edit</strong><br>
+          4. Cole o token gerado acima
         </div>
-      </button>`).join('')
-    : `<div class="alert alert-warning">⚠️ Nenhuma conta encontrada. Verifique as permissões do token.</div>`;
-
-  setHtml('stepCard', `
-    <div class="card-title">
-      <div class="card-title-icon">☁️</div>
-      Selecionar conta Cloudflare
-    </div>
-    <p class="card-desc">Escolha em qual conta a plataforma será instalada.</p>
-
-    <div class="account-list">${list}</div>
-
-    <div class="btn-actions">
-      <button class="btn btn-ghost" onclick="goStep(1)">← Voltar</button>
-      <button class="btn btn-primary" onclick="goStep(3)" ${!state.account ? 'disabled' : ''}>Próximo →</button>
-    </div>
-  `);
-}
-
-function selectAccount(id) {
-  state.account = state.accounts.find(a => a.id === id);
-  renderAccount();
-}
-
-/* ── Step 3: Database ────────────────────────────────────────── */
-function renderDatabase() {
-  const err = state.error ? `<div class="alert alert-error">⚠️ ${esc(state.error)}</div>` : '';
-  const done = state.db ? `
-    <div class="alert alert-success">✓ Banco de dados criado!</div>
-    <div class="info-grid">
-      <div class="info-row">
-        <span class="info-row-label">Nome</span>
-        <span class="info-row-value">${esc(state.db.name)}</span>
-        <button class="copy-btn" onclick="copyToClipboard('${esc(state.db.name)}', this)">Copiar</button>
       </div>
-      <div class="info-row">
-        <span class="info-row-label">ID do banco</span>
-        <span class="info-row-value">${esc(state.db.uuid)}</span>
-        <button class="copy-btn" onclick="copyToClipboard('${esc(state.db.uuid)}', this)">Copiar</button>
-      </div>
-    </div>` : '';
-
-  setHtml('stepCard', `
-    <div class="card-title">
-      <div class="card-title-icon">🗄️</div>
-      Banco de dados D1
+      ${err}
     </div>
-    <p class="card-desc">Vamos criar o banco de dados SQLite gerenciado pela Cloudflare para armazenar todos os dados da plataforma.</p>
-
-    <div class="field">
-      <label>NOME DO BANCO</label>
-      <input type="text" id="dbNameInput" placeholder="free-members-db" value="${esc(state.db?.name || 'free-members-db')}" ${state.db ? 'disabled' : ''} />
-      <div class="field-hint">Use letras minúsculas, números e hífens.</div>
-    </div>
-
-    ${done}
-    ${err}
-
-    <div class="btn-actions">
-      <button class="btn btn-ghost" onclick="goStep(2)">← Voltar</button>
-      ${state.db
-        ? `<button class="btn btn-primary" onclick="goStep(4)">Próximo →</button>`
-        : `<button class="btn btn-primary" id="createDbBtn" onclick="createDatabase()">
-            ${state.loading ? '<span class="spinner"></span> Criando...' : '🗄️ Criar banco de dados'}
-           </button>`
-      }
-    </div>
-  `);
+    <div class="card-footer">
+      <button class="btn btn-ghost" onclick="goStep(0)">← Voltar</button>
+      <button class="btn btn-primary" onclick="doValidate()">${S.loading?'<span class="spinner"></span> Verificando...':'Verificar e continuar →'}</button>
+    </div>`);
+  const inp=$('cfTokenInput');
+  if(inp){inp.addEventListener('keydown',e=>{if(e.key==='Enter')doValidate();});if(!S.cfToken)setTimeout(()=>inp.focus(),60);}
 }
 
-async function createDatabase() {
-  const name = val('dbNameInput') || 'free-members-db';
-  state.loading = true; state.error = '';
-  renderDatabase();
-  try {
-    const data = await cfFetch(`/accounts/${state.account.id}/d1/database`, {
-      method: 'POST',
-      body: JSON.stringify({ name }),
-    });
-    state.db = data.result;
-    state.loading = false;
-    renderDatabase();
-  } catch (e) {
-    state.loading = false;
-    state.error = e.message;
-    renderDatabase();
-  }
+async function doValidate(){
+  S.cfToken=val('cfTokenInput');
+  if(!S.cfToken){S.error='Cole o token antes de continuar.';return rToken();}
+  S.loading=true;S.error='';rToken();
+  try{
+    S.user=await cfGet('/user');
+    const accs=await cfGet('/accounts?per_page=50');
+    S.accounts=Array.isArray(accs)?accs:[];
+    S.loading=false;goStep(2);
+  }catch(e){S.loading=false;S.error=`Token inválido: ${e.message}`;rToken();}
 }
 
-/* ── Step 4: Storage ─────────────────────────────────────────── */
-function renderStorage() {
-  const err = state.error ? `<div class="alert alert-error">⚠️ ${esc(state.error)}</div>` : '';
-  const done = state.bucket ? `
-    <div class="alert alert-success">✓ Bucket R2 criado: <strong>${esc(state.bucket.name)}</strong></div>` : '';
+/* ── Step 2: Account ── */
+function rAccount(){
+  const initials=n=>String(n||'?').trim().split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+  const list=S.accounts.length
+    ?S.accounts.map(a=>`<button class="account-item ${S.account?.id===a.id?'is-selected':''}" onclick="doSelectAcc('${esc(a.id)}')"><div class="account-avatar">${esc(initials(a.name))}</div><div class="account-info"><div class="account-name">${esc(a.name)}</div><div class="account-id">${esc(a.id)}</div></div><div class="account-check">✓</div></button>`).join('')
+    :`<div class="alert alert-warning"><span class="alert-icon">⚠️</span><span>Nenhuma conta encontrada.</span></div>`;
+  const uInfo=S.user?`<div class="alert alert-success"><span class="alert-icon">✓</span><span>Conectado como <strong>${esc(S.user.email||S.user.username||'usuário')}</strong></span></div>`:'';
+  setHtml('stepCard',`
+    <div class="card-header"><div class="card-eyebrow">Passo 2 de 8</div><div class="card-title">Selecionar conta Cloudflare</div><div class="card-desc">Escolha em qual conta a plataforma será instalada.</div></div>
+    <div class="card-body">${uInfo}<div class="account-list">${list}</div></div>
+    <div class="card-footer"><button class="btn btn-ghost" onclick="goStep(1)">← Voltar</button><button class="btn btn-primary" onclick="goStep(3)" ${!S.account?'disabled':''}>Próximo →</button></div>`);
+}
+function doSelectAcc(id){S.account=S.accounts.find(a=>a.id===id);rAccount();}
 
-  setHtml('stepCard', `
-    <div class="card-title">
-      <div class="card-title-icon">📦</div>
-      Armazenamento R2 (opcional)
+/* ── Step 3: Database ── */
+function rDatabase(){
+  const err=S.error?`<div class="alert alert-error"><span class="alert-icon">⚠️</span><span>${esc(S.error)}</span></div>`:'';
+  const done=S.db?`<div class="alert alert-success"><span class="alert-icon">✅</span><span>Banco criado!</span></div><div class="info-list"><div class="info-row"><span class="info-row-label">Nome</span><span class="info-row-value">${esc(S.db.name)}</span><button class="copy-btn" onclick="copyText('${esc(S.db.name)}',this)">Copiar</button></div><div class="info-row"><span class="info-row-label">Database ID</span><span class="info-row-value">${esc(S.db.uuid)}</span><button class="copy-btn" onclick="copyText('${esc(S.db.uuid)}',this)">Copiar</button></div></div>`:'';
+  setHtml('stepCard',`
+    <div class="card-header"><div class="card-eyebrow">Passo 3 de 8</div><div class="card-title">Banco de dados D1</div><div class="card-desc">Criamos o banco SQLite gerenciado pela Cloudflare para armazenar todos os dados da plataforma.</div></div>
+    <div class="card-body">
+      <div class="field"><div class="field-label">Nome do banco</div><div class="field-input"><span class="field-icon">🗄️</span><input type="text" id="dbNameInput" placeholder="free-members-db" value="${esc(S.db?.name||'free-members-db')}" ${S.db?'disabled':''} /></div><div class="field-hint">Conta: <strong>${esc(S.account?.name)}</strong></div></div>
+      ${done}${err}
     </div>
-    <p class="card-desc">O R2 é usado para armazenar imagens, vídeos e materiais dos cursos. Você pode pular e configurar depois.</p>
-
-    <div class="toggle-field">
-      <div>
-        <div class="toggle-label"><strong>Criar bucket R2</strong></div>
-        <div class="toggle-sub">Recomendado para upload de arquivos</div>
-      </div>
-      <label class="switch">
-        <input type="checkbox" id="createBucketToggle" ${state.createBucket ? 'checked' : ''} onchange="state.createBucket=this.checked; renderStorage()" />
-        <span class="switch-slider"></span>
-      </label>
-    </div>
-
-    ${state.createBucket ? `
-    <div class="field">
-      <label>NOME DO BUCKET</label>
-      <input type="text" id="bucketNameInput" placeholder="free-members-assets" value="${esc(state.bucket?.name || 'free-members-assets')}" ${state.bucket ? 'disabled' : ''} />
-    </div>` : ''}
-
-    ${done}
-    ${err}
-
-    <div class="btn-actions">
-      <button class="btn btn-ghost" onclick="goStep(3)">← Voltar</button>
-      ${state.bucket || !state.createBucket
-        ? `<button class="btn btn-primary" onclick="goStep(5)">Próximo →</button>`
-        : `<button class="btn btn-primary" onclick="createBucket()">
-            ${state.loading ? '<span class="spinner"></span> Criando...' : '📦 Criar bucket'}
-           </button>`
-      }
-    </div>
-  `);
+    <div class="card-footer"><button class="btn btn-ghost" onclick="goStep(2)">← Voltar</button>${S.db?`<button class="btn btn-primary" onclick="goStep(4)">Próximo →</button>`:`<button class="btn btn-primary" onclick="doCreateDb()">${S.loading?'<span class="spinner"></span> Criando...':'🗄️ Criar banco de dados'}</button>`}</div>`);
+}
+async function doCreateDb(){
+  const name=val('dbNameInput')||'free-members-db';
+  S.loading=true;S.error='';rDatabase();
+  try{S.db=await cfPost(`/accounts/${S.account.id}/d1/database`,{name});S.loading=false;rDatabase();}
+  catch(e){S.loading=false;S.error=e.message;rDatabase();}
 }
 
-async function createBucket() {
-  const name = val('bucketNameInput') || 'free-members-assets';
-  state.loading = true; state.error = '';
-  renderStorage();
-  try {
-    const data = await cfFetch(`/accounts/${state.account.id}/r2/buckets`, {
-      method: 'POST',
-      body: JSON.stringify({ name }),
-    });
-    state.bucket = { name };
-    state.loading = false;
-    renderStorage();
-  } catch (e) {
-    state.loading = false;
-    state.error = e.message;
-    renderStorage();
-  }
+/* ── Step 4: Storage ── */
+function rStorage(){
+  const err=S.error?`<div class="alert alert-error"><span class="alert-icon">⚠️</span><span>${esc(S.error)}</span></div>`:'';
+  const done=S.bucket?`<div class="alert alert-success"><span class="alert-icon">✅</span><span>Bucket R2 <strong>${esc(S.bucket.name)}</strong> criado!</span></div>`:'';
+  setHtml('stepCard',`
+    <div class="card-header"><div class="card-eyebrow">Passo 4 de 8</div><div class="card-title">Armazenamento R2</div><div class="card-desc">O R2 guarda imagens e materiais dos cursos. Opcional — você pode configurar depois.</div></div>
+    <div class="card-body">
+      <div class="toggle-row"><div class="toggle-text"><strong>Criar bucket R2</strong><small>Recomendado para upload de arquivos e imagens</small></div><label class="switch"><input type="checkbox" id="bktToggle" ${S.createBucket?'checked':''} onchange="S.createBucket=this.checked;rStorage()" /><span class="switch-track"></span></label></div>
+      ${S.createBucket?`<div class="field"><div class="field-label">Nome do bucket</div><div class="field-input"><span class="field-icon">📦</span><input type="text" id="bktNameInput" placeholder="free-members-assets" value="${esc(S.bucket?.name||'free-members-assets')}" ${S.bucket?'disabled':''} /></div></div>`:''}
+      ${done}${err}
+    </div>
+    <div class="card-footer"><button class="btn btn-ghost" onclick="goStep(3)">← Voltar</button>${S.bucket||!S.createBucket?`<button class="btn btn-primary" onclick="goStep(5)">Próximo →</button>`:`<button class="btn btn-primary" onclick="doCreateBkt()">${S.loading?'<span class="spinner"></span> Criando...':'📦 Criar bucket'}</button>`}</div>`);
+}
+async function doCreateBkt(){
+  const name=val('bktNameInput')||'free-members-assets';
+  S.loading=true;S.error='';rStorage();
+  try{await cfPost(`/accounts/${S.account.id}/r2/buckets`,{name});S.bucket={name};S.loading=false;rStorage();}
+  catch(e){S.loading=false;S.error=e.message;rStorage();}
 }
 
-/* ── Step 5: Migrations ──────────────────────────────────────── */
-function renderMigrations() {
-  const logHtml = state.logs.length
-    ? `<div class="migration-log" id="migrationLog">
-        ${state.logs.map(l => `<div class="log-line log-${l.type}">${esc(l.msg)}</div>`).join('')}
-       </div>` : '<div class="migration-log" id="migrationLog"></div>';
-
-  const done = state.migrationsDone
-    ? `<div class="alert alert-success">✓ ${MIGRATION_STATEMENTS.length} instruções executadas com sucesso!</div>` : '';
-  const err = state.error ? `<div class="alert alert-error">⚠️ ${esc(state.error)}</div>` : '';
-
-  setHtml('stepCard', `
-    <div class="card-title">
-      <div class="card-title-icon">⚙️</div>
-      Executar migrações
-    </div>
-    <p class="card-desc">Vamos criar todas as tabelas do banco de dados D1 diretamente via Cloudflare API.</p>
-
-    ${logHtml}
-    ${done}
-    ${err}
-
-    <div class="btn-actions">
-      <button class="btn btn-ghost" onclick="goStep(4)">← Voltar</button>
-      ${state.migrationsDone
-        ? `<button class="btn btn-primary" onclick="goStep(6)">Próximo →</button>`
-        : `<button class="btn btn-primary" id="migrateBtn" onclick="runMigrations()">
-            ${state.loading ? '<span class="spinner"></span> Executando...' : '⚙️ Executar migrações'}
-           </button>`
-      }
-    </div>
-  `);
+/* ── Step 5: Migrate ── */
+function rMigrate(){
+  const circ=2*Math.PI*18;
+  const pct=S.migTotal?S.migCount/S.migTotal:0;
+  const offset=circ*(1-pct);
+  const ring=S.migTotal?`<div class="mig-progress"><div class="mig-ring"><svg viewBox="0 0 44 44" width="44" height="44"><circle class="mig-ring-track" cx="22" cy="22" r="18"/><circle class="mig-ring-fill" id="ringFill" cx="22" cy="22" r="18" stroke-dasharray="${circ}" stroke-dashoffset="${offset}"/></svg><div class="mig-ring-label" id="ringLabel">${Math.round(pct*100)}%</div></div><div class="mig-info"><strong>Executando migrações</strong><small id="migInfoText">${S.migCount} de ${S.migTotal} instruções</small></div></div>`:'' ;
+  const log=S.logs.length?`<div class="mig-log" id="migLog">${S.logs.map(l=>`<div class="log-${l.type}">${esc(l.msg)}</div>`).join('')}</div>`:'';
+  const done=S.migDone?`<div class="alert alert-success"><span class="alert-icon">✅</span><span>${MIGRATIONS.length} instruções executadas. Banco pronto!</span></div>`:'';
+  const err=S.error?`<div class="alert alert-error"><span class="alert-icon">⚠️</span><span>${esc(S.error)}</span></div>`:'';
+  setHtml('stepCard',`
+    <div class="card-header"><div class="card-eyebrow">Passo 5 de 8</div><div class="card-title">Executar migrações</div><div class="card-desc">Criamos todas as tabelas no banco D1 via Cloudflare API. Leva alguns segundos.</div></div>
+    <div class="card-body">${ring}${log}${done}${err}</div>
+    <div class="card-footer"><button class="btn btn-ghost" onclick="goStep(4)">← Voltar</button>${S.migDone?`<button class="btn btn-primary" onclick="goStep(6)">Próximo →</button>`:`<button class="btn btn-primary" onclick="doMigrate()">${S.loading?'<span class="spinner"></span> Executando...':'⚙️ Executar migrações'}</button>`}</div>`);
+  if(S.migTotal)setTimeout(()=>{const el=$('migLog');if(el)el.scrollTop=el.scrollHeight;},50);
 }
 
-async function runMigrations() {
-  state.loading = true;
-  state.error = '';
-  state.logs = [];
-  renderMigrations();
-
-  const accountId = state.account.id;
-  const dbId = state.db.uuid;
-
-  addLog(`→ Conectando ao banco "${state.db.name}"...`, 'info');
-
-  let ok = 0, fail = 0;
-  for (let i = 0; i < MIGRATION_STATEMENTS.length; i++) {
-    const sql = MIGRATION_STATEMENTS[i].trim();
-    const name = sql.split('\n')[0].replace(/\s+/g, ' ').slice(0, 60) + '…';
-    try {
-      await d1Query(accountId, dbId, sql);
-      addLog(`✓ [${i+1}/${MIGRATION_STATEMENTS.length}] ${name}`, 'ok');
-      ok++;
-    } catch (e) {
-      if (e.message.includes('already exists') || e.message.includes('duplicate')) {
-        addLog(`~ [${i+1}/${MIGRATION_STATEMENTS.length}] Já existe (ok)`, 'wait');
-        ok++;
-      } else {
-        addLog(`✗ [${i+1}/${MIGRATION_STATEMENTS.length}] ERRO: ${e.message}`, 'err');
-        fail++;
-      }
+async function doMigrate(){
+  S.loading=true;S.error='';S.logs=[];S.migCount=0;S.migTotal=MIGRATIONS.length;
+  rMigrate();
+  const aid=S.account.id,dbId=S.db.uuid;
+  addLog(`→ Banco: ${S.db.name} (${dbId.slice(0,8)}...)`,'info');
+  addLog(`→ ${MIGRATIONS.length} instruções para executar`,'dim');
+  let ok=0,fail=0;
+  for(let i=0;i<MIGRATIONS.length;i++){
+    const sql=MIGRATIONS[i].trim();
+    try{
+      await d1Run(aid,dbId,sql);
+      addLog(`✓ ${sql.slice(0,60).replace(/\s+/g,' ')}…`,'ok');ok++;
+    }catch(e){
+      if(/already exists|duplicate/i.test(e.message)){addLog(`~ já existe (ok)`,'dim');ok++;}
+      else{addLog(`✗ ERRO: ${e.message.slice(0,80)}`,'err');fail++;}
     }
-    await new Promise(r => setTimeout(r, 80));
+    updateRing(i+1,MIGRATIONS.length);
+    await new Promise(r=>setTimeout(r,90));
   }
-
-  state.loading = false;
-  if (fail === 0) {
-    addLog(`\n✅ Concluído! ${ok} instruções executadas.`, 'ok');
-    state.migrationsDone = true;
-  } else {
-    state.error = `${fail} instrução(ões) falharam. Verifique as permissões do token (D1:Edit).`;
-    addLog(`\n⚠️ ${fail} erro(s) encontrados.`, 'err');
-  }
-  renderMigrations();
+  S.loading=false;
+  if(fail===0){addLog(`\n✅ Concluído! ${ok} OK.`,'ok');S.migDone=true;}
+  else{S.error=`${fail} instrução(ões) falharam. Verifique a permissão D1:Edit no token.`;}
+  rMigrate();
 }
 
-/* ── Step 6: Deploy ──────────────────────────────────────────── */
-function renderDeploy() {
-  const dbId = state.db?.uuid || 'SEU_DATABASE_ID';
-  const dbName = state.db?.name || 'free-members-db';
-  const bucketName = state.bucket?.name || 'free-members-assets';
-
-  const wranglerToml = `name = "free-members-cloud"
-main = "src/worker/index.ts"
-compatibility_date = "2026-05-03"
-
-[vars]
-APP_ENV = "production"
-APP_VERSION = "0.1.0"
-
-[[d1_databases]]
-binding = "DB"
-database_name = "${dbName}"
-database_id = "${dbId}"
-${state.bucket ? `
-[[r2_buckets]]
-binding = "ASSETS"
-bucket_name = "${bucketName}"` : ''}`;
-
-  setHtml('stepCard', `
-    <div class="card-title">
-      <div class="card-title-icon">🚀</div>
-      Deploy do Worker
-    </div>
-    <p class="card-desc">Agora vamos fazer o deploy do Worker para a sua conta Cloudflare.</p>
-
-    <div class="divider">Opção A — 1 clique (recomendado)</div>
-
-    <div class="step-list">
-      <div class="step-item">
-        <div class="step-num">1</div>
-        <div class="step-text">Clique no botão abaixo para fazer o deploy direto do GitHub na sua conta Cloudflare.</div>
+/* ── Step 6: Deploy ── */
+function rDeploy(){
+  const dbId=S.db?.uuid||'SEU_DATABASE_ID';
+  const dbName=S.db?.name||'free-members-db';
+  const bkt=S.bucket?.name||'free-members-assets';
+  const toml=`name = "free-members-cloud"\nmain = "src/worker/index.ts"\ncompatibility_date = "2026-05-03"\n\n[vars]\nAPP_ENV = "production"\nAPP_VERSION = "0.1.0"\n\n[[d1_databases]]\nbinding = "DB"\ndatabase_name = "${dbName}"\ndatabase_id = "${dbId}"${S.bucket?`\n\n[[r2_buckets]]\nbinding = "ASSETS"\nbucket_name = "${bkt}"`:''}`;
+  setHtml('stepCard',`
+    <div class="card-header"><div class="card-eyebrow">Passo 6 de 8</div><div class="card-title">Deploy do Worker</div><div class="card-desc">Publique o Worker na sua conta Cloudflare usando o botão de deploy rápido ou o terminal.</div></div>
+    <div class="card-body">
+      <div class="divider">Opção A — 1 clique (recomendado)</div>
+      <div class="steps-list">
+        <div class="step-row"><div class="step-num">1</div><div class="step-text">Clique em <strong>Deploy to Cloudflare Workers</strong> abaixo.</div></div>
+        <div class="step-row"><div class="step-num">2</div><div class="step-text">Quando pedido o <strong>Database ID</strong>, cole: <code>${esc(dbId)}</code></div></div>
+        <div class="step-row"><div class="step-num">3</div><div class="step-text">Anote a <strong>URL do Worker</strong> gerada (ex: <code>free-members-cloud.xxx.workers.dev</code>)</div></div>
       </div>
-      <div class="step-item">
-        <div class="step-num">2</div>
-        <div class="step-text">Quando solicitado, insira o <strong>ID do banco de dados</strong>: <code>${esc(dbId)}</code></div>
+      <a class="btn btn-cf" href="https://deploy.workers.cloudflare.com/?url=https://github.com/diegotolenino/free-members-cloud" target="_blank">☁️ Deploy to Cloudflare Workers</a>
+      <div class="divider">Opção B — terminal</div>
+      <div class="steps-list">
+        <div class="step-row"><div class="step-num">1</div><div class="step-text"><code>git clone https://github.com/diegotolenino/free-members-cloud.git && cd free-members-cloud</code></div></div>
+        <div class="step-row"><div class="step-num">2</div><div class="step-text">Substitua o <code>wrangler.toml</code> pelo conteúdo abaixo:</div></div>
       </div>
-      <div class="step-item">
-        <div class="step-num">3</div>
-        <div class="step-text">Após o deploy, anote a <strong>URL do Worker</strong> (ex: <code>free-members-cloud.seusubdomain.workers.dev</code>)</div>
-      </div>
-    </div>
-
-    <a class="btn btn-cf" href="https://deploy.workers.cloudflare.com/?url=https://github.com/diegotolenino/free-members-cloud" target="_blank">
-      <svg width="16" height="16" viewBox="0 0 100 100" fill="currentColor"><circle cx="50" cy="50" r="50"/></svg>
-      Deploy to Cloudflare Workers
-    </a>
-
-    <div class="divider">Opção B — via terminal</div>
-
-    <div class="step-list">
-      <div class="step-item">
-        <div class="step-num">1</div>
-        <div class="step-text">Clone o repositório: <code>git clone https://github.com/diegotolenino/free-members-cloud.git</code></div>
-      </div>
-      <div class="step-item">
-        <div class="step-num">2</div>
-        <div class="step-text">Substitua o conteúdo do <code>wrangler.toml</code> pela configuração abaixo (já preenchida com o ID do banco):</div>
-      </div>
-    </div>
-
-    <div class="code-block" style="position:relative">
-<span class="comment"># wrangler.toml — copie este conteúdo</span>
-<span class="hl">name</span> = <span class="value">"free-members-cloud"</span>
-<span class="hl">main</span> = <span class="value">"src/worker/index.ts"</span>
-<span class="hl">compatibility_date</span> = <span class="value">"2026-05-03"</span>
+      <div class="code-wrap">
+        <div class="code-header"><span class="code-lang">wrangler.toml</span><button class="copy-btn" onclick="copyText($('tomlVal').value,this)">Copiar</button></div>
+        <div class="code-body"><span class="cm"># wrangler.toml — database_id já preenchido</span>
+<span class="hl">name</span> = <span class="val">"free-members-cloud"</span>
+<span class="hl">main</span> = <span class="val">"src/worker/index.ts"</span>
+<span class="hl">compatibility_date</span> = <span class="val">"2026-05-03"</span>
 
 [<span class="hl2">vars</span>]
-<span class="hl">APP_ENV</span> = <span class="value">"production"</span>
-<span class="hl">APP_VERSION</span> = <span class="value">"0.1.0"</span>
+<span class="hl">APP_ENV</span> = <span class="val">"production"</span>
+<span class="hl">APP_VERSION</span> = <span class="val">"0.1.0"</span>
 
 [[<span class="hl2">d1_databases</span>]]
-<span class="hl">binding</span> = <span class="value">"DB"</span>
-<span class="hl">database_name</span> = <span class="value">"${esc(dbName)}"</span>
-<span class="hl">database_id</span> = <span class="value">"${esc(dbId)}"</span>
-${state.bucket ? `
-[[<span class="hl2">r2_buckets</span>]]
-<span class="hl">binding</span> = <span class="value">"ASSETS"</span>
-<span class="hl">bucket_name</span> = <span class="value">"${esc(bucketName)}"</span>` : ''}
-      <button class="code-copy-btn" onclick="copyToClipboard(document.getElementById('wranglerTomlData').value, this)">Copiar</button>
-    </div>
-    <textarea id="wranglerTomlData" style="display:none">${wranglerToml.replace(/</g,'&lt;')}</textarea>
-
-    <div class="step-list" style="margin-top:-.5rem">
-      <div class="step-item">
-        <div class="step-num">3</div>
-        <div class="step-text">Execute: <code>npm install && npm run build && wrangler deploy</code></div>
+<span class="hl">binding</span> = <span class="val">"DB"</span>
+<span class="hl">database_name</span> = <span class="val">"${esc(dbName)}"</span>
+<span class="hl">database_id</span> = <span class="val">"${esc(dbId)}"</span>${S.bucket?`\n\n[[<span class="hl2">r2_buckets</span>]]\n<span class="hl">binding</span> = <span class="val">"ASSETS"</span>\n<span class="hl">bucket_name</span> = <span class="val">"${esc(bkt)}"</span>`:''}</div>
       </div>
+      <textarea id="tomlVal" style="display:none"></textarea>
+      <div class="steps-list"><div class="step-row"><div class="step-num">3</div><div class="step-text"><code>npm install && npm run build && wrangler deploy</code></div></div></div>
     </div>
-
-    <div class="btn-actions">
-      <button class="btn btn-ghost" onclick="goStep(5)">← Voltar</button>
-      <button class="btn btn-primary" onclick="goStep(7)">Já fiz o deploy →</button>
-    </div>
-  `);
-
-  // Fix the textarea copy
-  setTimeout(() => {
-    const t = document.getElementById('wranglerTomlData');
-    if (t) t.value = wranglerToml;
-  }, 50);
+    <div class="card-footer"><button class="btn btn-ghost" onclick="goStep(5)">← Voltar</button><button class="btn btn-primary" onclick="goStep(7)">Já fiz o deploy →</button></div>`);
+  setTimeout(()=>{const t=$('tomlVal');if(t)t.value=toml;},50);
 }
 
-/* ── Step 7: Admin ───────────────────────────────────────────── */
-function renderAdmin() {
-  const err = state.error ? `<div class="alert alert-error">⚠️ ${esc(state.error)}</div>` : '';
-  const done = state.adminCreated
-    ? `<div class="alert alert-success">✓ Administrador criado com sucesso!</div>` : '';
-
-  setHtml('stepCard', `
-    <div class="card-title">
-      <div class="card-title-icon">👤</div>
-      Criar primeiro administrador
-    </div>
-    <p class="card-desc">Informe a URL do Worker que acabou de ser publicado e os dados do administrador da plataforma.</p>
-
-    <div class="field">
-      <label>URL DO WORKER</label>
-      <input type="url" id="workerUrlInput" placeholder="https://free-members-cloud.seusubdominio.workers.dev" value="${esc(state.workerUrl)}" />
-      <div class="field-hint">Sem barra no final. Encontre a URL no dashboard Cloudflare → Workers & Pages.</div>
-    </div>
-
-    <div class="field-row">
-      <div class="field">
-        <label>SEU NOME</label>
-        <input type="text" id="adminNameInput" placeholder="João Silva" value="${esc(state.adminName)}" />
+/* ── Step 7: Admin ── */
+function rAdmin(){
+  const err=S.error?`<div class="alert alert-error"><span class="alert-icon">⚠️</span><span>${esc(S.error)}</span></div>`:'';
+  const done=S.adminDone?`<div class="alert alert-success"><span class="alert-icon">✅</span><span>Administrador criado!</span></div>`:'';
+  setHtml('stepCard',`
+    <div class="card-header"><div class="card-eyebrow">Passo 7 de 8</div><div class="card-title">Criar administrador</div><div class="card-desc">Informe a URL do Worker publicado e os dados do primeiro admin.</div></div>
+    <div class="card-body">
+      <div class="field"><div class="field-label">URL do Worker</div><div class="field-input"><span class="field-icon">🌐</span><input type="url" id="workerUrlInput" placeholder="https://free-members-cloud.xxx.workers.dev" value="${esc(S.workerUrl)}" /></div><div class="field-hint">Encontre em Cloudflare → Workers &amp; Pages → seu worker.</div></div>
+      <div class="field-row">
+        <div class="field"><div class="field-label">Seu nome</div><div class="field-input"><input type="text" id="adminNameInput" placeholder="João Silva" value="${esc(S.adminName)}" /></div></div>
+        <div class="field"><div class="field-label">E-mail</div><div class="field-input"><input type="email" id="adminEmailInput" placeholder="voce@email.com" value="${esc(S.adminEmail)}" /></div></div>
       </div>
-      <div class="field">
-        <label>E-MAIL</label>
-        <input type="email" id="adminEmailInput" placeholder="voce@email.com" value="${esc(state.adminEmail)}" />
-      </div>
+      <div class="field"><div class="field-label">Senha (mín. 8 caracteres)</div><div class="field-input"><span class="field-icon">🔒</span><input type="password" id="adminPassInput" placeholder="••••••••" value="${esc(S.adminPassword)}" /></div></div>
+      ${done}${err}
     </div>
-
-    <div class="field">
-      <label>SENHA</label>
-      <input type="password" id="adminPassInput" placeholder="Mínimo 8 caracteres" value="${esc(state.adminPassword)}" />
-    </div>
-
-    ${done}
-    ${err}
-
-    <div class="btn-actions">
-      <button class="btn btn-ghost" onclick="goStep(6)">← Voltar</button>
-      ${state.adminCreated
-        ? `<button class="btn btn-primary" onclick="goStep(8)">Ver resultado →</button>`
-        : `<button class="btn btn-primary" onclick="createAdmin()">
-            ${state.loading ? '<span class="spinner"></span> Criando...' : '👤 Criar administrador'}
-           </button>`
-      }
-    </div>
-  `);
+    <div class="card-footer"><button class="btn btn-ghost" onclick="goStep(6)">← Voltar</button>${S.adminDone?`<button class="btn btn-primary" onclick="goStep(8)">Ver resultado →</button>`:`<button class="btn btn-primary" onclick="doCreateAdmin()">${S.loading?'<span class="spinner"></span> Criando...':'👤 Criar administrador'}</button>`}</div>`);
+}
+async function doCreateAdmin(){
+  S.workerUrl=val('workerUrlInput').replace(/\/$/,'');
+  S.adminName=val('adminNameInput');S.adminEmail=val('adminEmailInput');S.adminPassword=val('adminPassInput');S.error='';
+  if(!S.workerUrl)return(S.error='Informe a URL do Worker.',rAdmin());
+  if(!S.adminName)return(S.error='Informe o seu nome.',rAdmin());
+  if(!S.adminEmail)return(S.error='Informe o e-mail.',rAdmin());
+  if(S.adminPassword.length<8)return(S.error='A senha precisa ter pelo menos 8 caracteres.',rAdmin());
+  S.loading=true;rAdmin();
+  try{
+    const r=await fetch(`${S.workerUrl}/api/install/owner`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:S.adminName,email:S.adminEmail,password:S.adminPassword})});
+    const d=await r.json();
+    if(!r.ok)throw new Error(d.error||d.message||`HTTP ${r.status}`);
+    S.adminDone=true;S.loading=false;rAdmin();
+  }catch(e){S.loading=false;S.error=`Falha: ${e.message}. Verifique se o deploy foi concluído e a URL está correta.`;rAdmin();}
 }
 
-async function createAdmin() {
-  state.workerUrl = val('workerUrlInput').replace(/\/$/, '');
-  state.adminName = val('adminNameInput');
-  state.adminEmail = val('adminEmailInput');
-  state.adminPassword = val('adminPassInput');
-  state.error = '';
-
-  if (!state.workerUrl) { state.error = 'Informe a URL do Worker.'; return renderAdmin(); }
-  if (!state.adminName) { state.error = 'Informe o nome.'; return renderAdmin(); }
-  if (!state.adminEmail) { state.error = 'Informe o e-mail.'; return renderAdmin(); }
-  if (state.adminPassword.length < 8) { state.error = 'A senha precisa ter pelo menos 8 caracteres.'; return renderAdmin(); }
-
-  state.loading = true;
-  renderAdmin();
-
-  try {
-    const res = await fetch(`${state.workerUrl}/api/install/owner`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name: state.adminName,
-        email: state.adminEmail,
-        password: state.adminPassword,
-      }),
-    });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error || data.message || `HTTP ${res.status}`);
-    state.adminCreated = true;
-    state.loading = false;
-    renderAdmin();
-  } catch (e) {
-    state.loading = false;
-    state.error = `Não foi possível criar o admin: ${e.message}. Verifique se a URL do Worker está correta e o deploy foi concluído.`;
-    renderAdmin();
-  }
-}
-
-/* ── Step 8: Done ────────────────────────────────────────────── */
-function renderDone() {
-  const url = state.workerUrl || 'https://seu-worker.workers.dev';
-
-  setHtml('stepCard', `
-    <div class="success-hero">
-      <div class="success-icon">🎉</div>
-      <h2>Instalação concluída!</h2>
-      <p>Sua plataforma Free Members está no ar.</p>
-    </div>
-
-    <div class="info-grid">
-      <div class="info-row">
-        <span class="info-row-label">🌐 URL da plataforma</span>
-        <span class="info-row-value">${esc(url)}</span>
-        <button class="copy-btn" onclick="copyToClipboard('${esc(url)}', this)">Copiar</button>
+/* ── Step 8: Done ── */
+function rDone(){
+  const url=S.workerUrl||'https://seu-worker.workers.dev';
+  setHtml('stepCard',`
+    <div class="card-body" style="padding-top:1.75rem">
+      <div class="success-screen"><div class="success-icon-wrap">🎉</div><h2>Instalação concluída!</h2><p>Sua plataforma está no ar. Acesse e comece a criar seus cursos.</p></div>
+      <div class="info-list">
+        <div class="info-row"><span class="info-row-label">🌐 Plataforma</span><span class="info-row-value">${esc(url)}</span><button class="copy-btn" onclick="copyText('${esc(url)}',this)">Copiar</button></div>
+        <div class="info-row"><span class="info-row-label">🗄️ Banco</span><span class="info-row-value">${esc(S.db?.name||'—')}</span></div>
+        <div class="info-row"><span class="info-row-label">👤 Admin</span><span class="info-row-value">${esc(S.adminEmail||'—')}</span></div>
+        ${S.bucket?`<div class="info-row"><span class="info-row-label">📦 Bucket</span><span class="info-row-value">${esc(S.bucket.name)}</span></div>`:''}
       </div>
-      <div class="info-row">
-        <span class="info-row-label">🗄️ Banco D1</span>
-        <span class="info-row-value">${esc(state.db?.name || '—')}</span>
-      </div>
-      <div class="info-row">
-        <span class="info-row-label">👤 Admin</span>
-        <span class="info-row-value">${esc(state.adminEmail || '—')}</span>
+      <div class="steps-list">
+        <div class="step-row"><div class="step-num">→</div><div class="step-text">Acesse <strong>${esc(url)}</strong> e faça login com seu e-mail e senha.</div></div>
+        <div class="step-row"><div class="step-num">→</div><div class="step-text">Configure as <strong>integrações de pagamento</strong> (Mercado Pago, Pagar.me) no menu Integrações.</div></div>
+        <div class="step-row"><div class="step-num">→</div><div class="step-text">Crie seu primeiro <strong>curso</strong> e configure um <strong>checkout</strong> para vender.</div></div>
       </div>
     </div>
-
-    <div class="step-list">
-      <div class="step-item">
-        <div class="step-num">→</div>
-        <div class="step-text">Acesse <strong>${esc(url)}</strong> e faça login com o e-mail e senha que você criou.</div>
-      </div>
-      <div class="step-item">
-        <div class="step-num">→</div>
-        <div class="step-text">Configure as <strong>integrações de pagamento</strong> (Mercado Pago, Pagar.me) no painel.</div>
-      </div>
-      <div class="step-item">
-        <div class="step-num">→</div>
-        <div class="step-text">Crie seu primeiro <strong>curso</strong> e configure um <strong>checkout</strong> para começar a vender.</div>
-      </div>
-    </div>
-
-    <div class="btn-actions" style="justify-content: center; gap: 1rem;">
-      <a class="btn btn-ghost" href="https://github.com/diegotolenino/free-members-cloud" target="_blank">📖 Documentação</a>
+    <div class="card-footer" style="justify-content:center;gap:1rem">
+      <a class="btn btn-ghost" href="https://github.com/diegotolenino/free-members-cloud" target="_blank">📖 GitHub</a>
       <a class="btn btn-success" href="${esc(url)}" target="_blank">🚀 Acessar plataforma</a>
-    </div>
-  `);
+    </div>`);
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   Navigation
-═══════════════════════════════════════════════════════════════ */
-function goStep(n) {
-  state.step = n;
-  state.error = '';
-  state.loading = false;
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-  renderStep();
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   Boot
-═══════════════════════════════════════════════════════════════ */
 renderStep();
 </script>
 </body>
