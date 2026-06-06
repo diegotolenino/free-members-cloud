@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Wrangler local state
+.wrangler/
+
+# Environment
+.env
+.env.local
+.env*.local
+.dev.vars
+
+# Screenshots (dev artifacts)
+screenshots/*.png
+screenshots/*.jpg
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*

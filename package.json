@@ -1,0 +1,29 @@
+{
+  "name": "free-members-cloud",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "dev:web": "vite --host 0.0.0.0",
+    "build:web": "vite build",
+    "build": "npm run build:web",
+    "deploy": "wrangler deploy",
+    "db:migrate:local": "wrangler d1 migrations apply free_members_cloud --local",
+    "db:migrate": "wrangler d1 migrations apply free_members_cloud --remote",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.30.1",
+    "vite": "^5.4.19"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250601.0",
+    "playwright": "^1.60.0",
+    "typescript": "^5.6.3",
+    "wrangler": "^4.0.0"
+  }
+}

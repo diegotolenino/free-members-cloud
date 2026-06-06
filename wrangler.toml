@@ -1,0 +1,16 @@
+name = "free-members-cloud"
+main = "src/worker/index.ts"
+compatibility_date = "2026-05-03"
+
+[vars]
+APP_ENV = "development"
+APP_VERSION = "0.1.0"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "free_members_cloud"
+database_id = "replace-with-d1-database-id"
+
+[[r2_buckets]]
+binding = "ASSETS"
+bucket_name = "free-members-assets"
