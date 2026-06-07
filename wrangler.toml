@@ -11,6 +11,7 @@ binding = "DB"
 database_name = "free_members_cloud"
 database_id = "replace-with-d1-database-id"
 
-[[r2_buckets]]
-binding = "ASSETS"
-bucket_name = "free-members-assets"
+# R2 é opcional (requer plano pago). Descomente após ativar R2 na sua conta:
+# [[r2_buckets]]
+# binding = "ASSETS"
+# bucket_name = "free-members-assets"
