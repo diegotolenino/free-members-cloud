@@ -1652,9 +1652,16 @@ export default {
     if (request.method === 'OPTIONS') {
       return new Response(null, { status: 204, headers: CORS_HEADERS });
     }
-    const response = await route(request, env);
-    const headers = new Headers(response.headers);
-    Object.entries(CORS_HEADERS).forEach(([k, v]) => headers.set(k, v));
-    return new Response(response.body, { status: response.status, headers });
+    try {
+      const response = await route(request, env);
+      const headers = new Headers(response.headers);
+      Object.entries(CORS_HEADERS).forEach(([k, v]) => headers.set(k, v));
+      return new Response(response.body, { status: response.status, headers });
+    } catch (err) {
+      return new Response(
+        JSON.stringify({ error: 'internal_error', message: String(err) }),
+        { status: 500, headers: { ...CORS_HEADERS, 'Content-Type': 'application/json; charset=utf-8' } },
+      );
+    }
   },
 };
