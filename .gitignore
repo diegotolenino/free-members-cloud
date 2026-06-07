@@ -1,8 +1,8 @@
 # Dependencies
 node_modules/
 
-# Build output
-dist/
+# Build output (dist/web is committed so deploy button works)
+dist/worker/
 
 # Wrangler local state
 .wrangler/

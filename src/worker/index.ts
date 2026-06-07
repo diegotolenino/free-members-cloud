@@ -1,6 +1,6 @@
 export interface Env {
   DB: D1Database;
-  ASSETS?: R2Bucket;
+  ASSETS?: { fetch(req: RequestInfo | URL, init?: RequestInit): Promise<Response> };
   APP_ENV: string;
   APP_VERSION: string;
 }
@@ -1652,6 +1652,17 @@ export default {
     if (request.method === 'OPTIONS') {
       return new Response(null, { status: 204, headers: CORS_HEADERS });
     }
+
+    const url = new URL(request.url);
+
+    // Serve React SPA for all non-API routes
+    if (!url.pathname.startsWith('/api/') && env.ASSETS) {
+      const assetResp = await env.ASSETS.fetch(request);
+      if (assetResp.status !== 404) return assetResp;
+      // SPA fallback: unmatched routes (e.g. /dashboard, /login) get index.html
+      return env.ASSETS.fetch(new Request(new URL('/index.html', request.url).toString()));
+    }
+
     try {
       const response = await route(request, env);
       const headers = new Headers(response.headers);
