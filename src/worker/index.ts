@@ -9,7 +9,7 @@ type JsonValue = Record<string, unknown> | Array<unknown>;
 
 const SESSION_COOKIE = 'fm_cloud_session';
 const SESSION_DAYS = 30;
-const PASSWORD_ITERATIONS = 120000;
+const PASSWORD_ITERATIONS = 100000;
 
 function json(data: JsonValue, init: ResponseInit = {}): Response {
   return new Response(JSON.stringify(data), {
