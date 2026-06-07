@@ -1640,8 +1640,21 @@ async function route(request: Request, env: Env): Promise<Response> {
   return notFound();
 }
 
+const CORS_HEADERS = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, POST, PUT, PATCH, DELETE, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization, Cookie',
+  'Access-Control-Allow-Credentials': 'true',
+};
+
 export default {
-  fetch(request: Request, env: Env): Promise<Response> {
-    return route(request, env);
+  async fetch(request: Request, env: Env): Promise<Response> {
+    if (request.method === 'OPTIONS') {
+      return new Response(null, { status: 204, headers: CORS_HEADERS });
+    }
+    const response = await route(request, env);
+    const headers = new Headers(response.headers);
+    Object.entries(CORS_HEADERS).forEach(([k, v]) => headers.set(k, v));
+    return new Response(response.body, { status: response.status, headers });
   },
 };
